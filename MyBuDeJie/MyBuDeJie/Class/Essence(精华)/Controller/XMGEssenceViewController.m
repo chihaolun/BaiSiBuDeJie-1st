@@ -17,8 +17,8 @@
 #import "XMGWordViewController.h"
 
 
-@interface XMGEssenceViewController ()
-
+@interface XMGEssenceViewController ()<UIScrollViewDelegate>
+@property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) UIView *titlesView;
 @property (nonatomic, weak) XMGTitleButton *previousClickedTitleButton;
 @property (nonatomic, weak) UIView *titleUnderLine;
@@ -55,6 +55,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     UIScrollView *scrollView = [[UIScrollView alloc] init];
+    self.scrollView = scrollView;
+    scrollView.delegate = self;
     scrollView.backgroundColor = [UIColor blueColor];
     scrollView.frame = self.view.bounds;
     scrollView.showsVerticalScrollIndicator = NO;
@@ -72,7 +74,7 @@
        UIView *childVcView = self.childViewControllers[i].view;
         childVcView.frame = CGRectMake(i * scrollViewW, 0, scrollViewW, scrollViewH);
         [scrollView addSubview:childVcView];
-        NSLog(@"%f,----,%f",childVcView.frame.size.height,childVcView.frame.origin.y);
+       
     }
     scrollView.contentSize = CGSizeMake(count * scrollViewW, 0);
     
@@ -103,7 +105,7 @@
     
     for (NSInteger i = 0; i < count; i++) {
         XMGTitleButton *titleButton = [[XMGTitleButton alloc] init];
-        
+        titleButton.tag = i;
         [titleButton addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         
         titleButton.frame = CGRectMake(i * titleButtonW, 0, titleButtonW, titleButtonH);
@@ -144,9 +146,14 @@
     button.selected = YES;
     self.previousClickedTitleButton = button;
     
-[UIView animateWithDuration:0.25 animations:^{
+[UIView animateWithDuration:0.15 animations:^{
     self.titleUnderLine.xmg_width = button.titleLabel.xmg_width + 10;
     self.titleUnderLine.xmg_centerX = button.xmg_centerX;
+    
+    CGFloat offsetX = self.scrollView.xmg_width * button.tag;
+    self.scrollView.contentOffset = CGPointMake(offsetX, self.scrollView.contentOffset.y);
+    
+    
 }];
 
 }
@@ -169,14 +176,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - <UIScrollViewDelegate>
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+
+    NSInteger index = scrollView.contentOffset.x / scrollView.xmg_width;
+    XMGTitleButton *titleButton = self.titlesView.subviews[index];
+    [self titleButtonClick:titleButton];
+
 }
-*/
 
 @end

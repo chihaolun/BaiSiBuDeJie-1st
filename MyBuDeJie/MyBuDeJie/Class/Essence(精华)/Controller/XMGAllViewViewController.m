@@ -21,6 +21,31 @@
     
     self.tableView.contentInset = UIEdgeInsetsMake(XMGNavMaxY + XMGTitlesViewH, 0, XMGTabBarH, 0);
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabBarButtonDidRepeaatClick) name:XMGTabBarButtonDidRepeatClickNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleButtonDidRepeaatClick) name:XMGTitleButtonDidRepeatClickNotification object:nil];
+    
+    
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)tabBarButtonDidRepeaatClick{
+
+    if (self.view.window == nil) return;
+    if (self.tableView.scrollsToTop == NO) return;
+    
+    NSLog(@"刷新数据");
+
+}
+
+- (void)titleButtonDidRepeaatClick{
+
+   [self tabBarButtonDidRepeaatClick];
+    
+    
 }
 
 

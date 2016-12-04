@@ -12,6 +12,7 @@
 
 @property (nonatomic,weak) UIButton *plusButton;
 
+@property (nonatomic, weak) UIControl *previousClickedTabBarButton;
 @end
 
 @implementation XMGTabBar
@@ -41,18 +42,38 @@
     CGFloat x = 0;
     int i = 0;
     
-    for (UIView *tabBarButton in self.subviews) {
+    for (UIControl *tabBarButton in self.subviews) {
         if([tabBarButton isKindOfClass:NSClassFromString(@"UITabBarButton")]){
+            
+            if (i == 0 && self.previousClickedTabBarButton == nil) {
+                self.previousClickedTabBarButton = tabBarButton;
+            }
+            
             if (i == 2) {
                 i += 1;
             }
             x = i * btnW;
             tabBarButton.frame = CGRectMake(x, 0, btnW, btnH);
             i++;
+            
+            [tabBarButton addTarget:self action:@selector(tabBarButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         }
     }
     
     self.plusButton.center = CGPointMake(self.xmg_width * 0.5, self.xmg_height * 0.5);
+
+}
+
+
+- (void)tabBarButtonClick:(UIControl *)tabBarButton{
+
+    if (self.previousClickedTabBarButton == tabBarButton) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:XMGTabBarButtonDidRepeatClickNotification object:nil];
+        
+        
+    }
+    self.previousClickedTabBarButton = tabBarButton;
+
 
 }
 @end

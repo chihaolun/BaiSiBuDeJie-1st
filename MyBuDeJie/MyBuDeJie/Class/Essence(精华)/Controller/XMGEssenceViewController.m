@@ -62,6 +62,7 @@
     scrollView.frame = self.view.bounds;
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.scrollsToTop = NO;
     scrollView.pagingEnabled = YES;
     [self.view addSubview:scrollView];
     
@@ -108,12 +109,12 @@
         XMGTitleButton *titleButton = [[XMGTitleButton alloc] init];
         titleButton.tag = i;
         [titleButton addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        
+        [self.titlesView addSubview:titleButton];
         titleButton.frame = CGRectMake(i * titleButtonW, 0, titleButtonW, titleButtonH);
         [titleButton setTitle:titles[i] forState:UIControlStateNormal];
         
         
-        [self.titlesView addSubview:titleButton];
+        
         
     }
 
@@ -143,6 +144,10 @@
 //点击标题按钮时候调用
 - (void)titleButtonClick:(XMGTitleButton *)button{
 
+    if (self.previousClickedTitleButton == button) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:XMGTitleButtonDidRepeatClickNotification object:nil];
+    }
+    
     self.previousClickedTitleButton.selected = NO;
     button.selected = YES;
     self.previousClickedTitleButton = button;
@@ -157,6 +162,16 @@
 } completion:^(BOOL finished) {
     [self addChildVcViewInToScrollView:index];
 }];
+    
+    for (NSUInteger i = 0; i < self.childViewControllers.count; i++) {
+        UIViewController *childVc = self.childViewControllers[i];
+        if (!childVc.isViewLoaded) continue;
+        
+        UIScrollView *scrollView = (UIScrollView *)childVc.view;
+        if (![scrollView isKindOfClass:[UIScrollView class]]) continue;
+        
+        scrollView.scrollsToTop = (i == index);
+    }
 
 }
 

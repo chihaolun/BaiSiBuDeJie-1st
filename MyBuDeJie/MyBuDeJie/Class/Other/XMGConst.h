@@ -7,3 +7,6 @@ UIKIT_EXTERN CGFloat const XMGNavMaxY;
 
 UIKIT_EXTERN CGFloat const XMGTitlesViewH;
 
+UIKIT_EXTERN NSString * const XMGTabBarButtonDidRepeatClickNotification;
+
+UIKIT_EXTERN NSString * const XMGTitleButtonDidRepeatClickNotification;

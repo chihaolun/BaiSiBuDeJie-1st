@@ -37,6 +37,7 @@
     
     [self setupTitlesView];
     
+    [self addChildVcViewInToScrollView:0];
     
 }
 
@@ -55,7 +56,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     UIScrollView *scrollView = [[UIScrollView alloc] init];
-    self.scrollView = scrollView;
+   
     scrollView.delegate = self;
     scrollView.backgroundColor = [UIColor blueColor];
     scrollView.frame = self.view.bounds;
@@ -64,19 +65,19 @@
     scrollView.pagingEnabled = YES;
     [self.view addSubview:scrollView];
     
-    
+     self.scrollView = scrollView;
     
     NSUInteger count = self.childViewControllers.count;
-    CGFloat scrollViewW = scrollView.xmg_width;
-    CGFloat scrollViewH= scrollView.xmg_height;
-    
-    for (NSUInteger i = 0; i < count; i++) {
-       UIView *childVcView = self.childViewControllers[i].view;
-        childVcView.frame = CGRectMake(i * scrollViewW, 0, scrollViewW, scrollViewH);
-        [scrollView addSubview:childVcView];
-       
-    }
-    scrollView.contentSize = CGSizeMake(count * scrollViewW, 0);
+   CGFloat scrollViewW = scrollView.xmg_width;
+//    CGFloat scrollViewH= scrollView.xmg_height;
+//    
+//    for (NSUInteger i = 0; i < count; i++) {
+//       UIView *childVcView = self.childViewControllers[i].view;
+//        childVcView.frame = CGRectMake(i * scrollViewW, 0, scrollViewW, scrollViewH);
+//        [scrollView addSubview:childVcView];
+//       
+//    }
+   scrollView.contentSize = CGSizeMake(count * scrollViewW, 0);
     
 }
 
@@ -146,14 +147,15 @@
     button.selected = YES;
     self.previousClickedTitleButton = button;
     
+    NSUInteger index = button.tag;
 [UIView animateWithDuration:0.15 animations:^{
     self.titleUnderLine.xmg_width = button.titleLabel.xmg_width + 10;
     self.titleUnderLine.xmg_centerX = button.xmg_centerX;
     
-    CGFloat offsetX = self.scrollView.xmg_width * button.tag;
+    CGFloat offsetX = self.scrollView.xmg_width * index;
     self.scrollView.contentOffset = CGPointMake(offsetX, self.scrollView.contentOffset.y);
-    
-    
+} completion:^(BOOL finished) {
+    [self addChildVcViewInToScrollView:index];
 }];
 
 }
@@ -184,6 +186,20 @@
     NSInteger index = scrollView.contentOffset.x / scrollView.xmg_width;
     XMGTitleButton *titleButton = self.titlesView.subviews[index];
     [self titleButtonClick:titleButton];
+
+}
+
+- (void)addChildVcViewInToScrollView:(NSUInteger)index{
+
+   UIViewController *childVc = self.childViewControllers[index];
+    if (childVc.isViewLoaded) return;
+    UIView *childVcView = childVc.view;
+    
+    //if (childVc.isViewLoaded) return;
+    CGFloat scrollViewW = self.scrollView.xmg_width;
+    CGFloat scrollViewH= self.scrollView.xmg_height;
+    childVcView.frame = CGRectMake(index * scrollViewW , 0, scrollViewW, scrollViewH);
+    [self.scrollView addSubview:childVcView];
 
 }
 

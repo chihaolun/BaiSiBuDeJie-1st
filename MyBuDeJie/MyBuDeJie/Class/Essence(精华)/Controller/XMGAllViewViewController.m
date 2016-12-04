@@ -9,13 +9,18 @@
 #import "XMGAllViewViewController.h"
 
 @interface XMGAllViewViewController ()
-
+@property (nonatomic, assign) NSInteger dataCount;
+@property (nonatomic, weak) UIView *footer;
+@property (nonatomic, assign ,getter=isFooterRefreshing) BOOL footerRefreshing;
+@property (nonatomic, weak) UILabel *footerLabel;
 @end
 
 @implementation XMGAllViewViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.dataCount = 30;
     
     self.view.backgroundColor = XMGRandomColor;
     
@@ -24,7 +29,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabBarButtonDidRepeaatClick) name:XMGTabBarButtonDidRepeatClickNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleButtonDidRepeaatClick) name:XMGTitleButtonDidRepeatClickNotification object:nil];
-    
+    [self setUpfresh];
+    NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
     
 }
 
@@ -48,9 +54,28 @@
     
 }
 
+- (void)setUpfresh{
+
+    UIView *footer = [[UIView alloc] init];
+   footer.frame = CGRectMake(0, 0, self.tableView.xmg_width, 35);
+    UILabel *footerLabel = [[UILabel alloc] init];
+    footerLabel.frame = footer.bounds;
+    footerLabel.text = @"上拉可以加载更多";
+    footerLabel.textColor = [UIColor whiteColor];
+    footerLabel.textAlignment = NSTextAlignmentCenter;
+    self.footerLabel = footerLabel;
+    [footer addSubview:footerLabel];
+    self.footer = footer;
+    self.tableView.tableFooterView = footer;
+  
+
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 30;
+    
+    self.footer.hidden = (self.dataCount == 0);
+    return self.dataCount;
 }
 
 
@@ -71,6 +96,35 @@
  
     
     return cell;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+
+    if (self.tableView.contentSize.height == 0) return;
+    
+    if (self.isFooterRefreshing) return;
+    
+    CGFloat offsetY = self.tableView.contentSize.height + self.tableView.contentInset.bottom - self.tableView.xmg_height;
+    
+    if (self.tableView.contentOffset.y >= offsetY) {
+        self.footerRefreshing = YES;
+        self.footerLabel.text = @"正在加载更多数据";
+        self.footerLabel.backgroundColor = [UIColor blueColor];
+        
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.dataCount += 5;
+            [self.tableView reloadData];
+            
+            self.footerRefreshing = NO;
+            self.footerLabel.text = @"上拉可以加载更多";
+            self.footerLabel.backgroundColor = [UIColor redColor];
+            
+        });
+        
+    }
+
+
 }
 
 

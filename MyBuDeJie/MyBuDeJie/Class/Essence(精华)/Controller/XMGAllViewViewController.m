@@ -47,7 +47,7 @@
     if (self.view.window == nil) return;
     if (self.tableView.scrollsToTop == NO) return;
     
-    
+    [self headerBeginRefreshing];
 
 }
 
@@ -97,6 +97,8 @@
     headerLabel.textAlignment = NSTextAlignmentCenter;
     self.headerLabel = headerLabel;
     [header addSubview:headerLabel];
+    
+    [self headerBeginRefreshing];
 }
 
 
@@ -158,25 +160,12 @@
     
     if (self.tableView.contentSize.height == 0) return;
     
-    if (self.isFooterRefreshing) return;
+    
     
     CGFloat offsetY = self.tableView.contentSize.height + self.tableView.contentInset.bottom - self.tableView.xmg_height;
     
-    if (self.tableView.contentOffset.y >= offsetY) {
-        self.footerRefreshing = YES;
-        self.footerLabel.text = @"正在加载更多数据";
-        self.footerLabel.backgroundColor = [UIColor blueColor];
-        
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.dataCount += 5;
-            [self.tableView reloadData];
-            
-            self.footerRefreshing = NO;
-            self.footerLabel.text = @"上拉可以加载更多";
-            self.footerLabel.backgroundColor = [UIColor redColor];
-            
-        });
+    if (self.tableView.contentOffset.y >= offsetY && self.tableView.contentOffset.y > - (self.tableView.contentInset.top)) {
+        [self footerBeginRefreshing];
         
     }
 
@@ -186,36 +175,94 @@
 //手松开的时候调用
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 
-    if (self.isHeaderRefreshing) return;
+   
     
     CGFloat offsetY = - (self.tableView.contentInset.top + self.header.xmg_height);
     
     if (self.tableView.contentOffset.y <= offsetY) {
-        self.headerLabel.text = @"正在刷新数据...";
-        self.headerLabel.backgroundColor = [UIColor blueColor];
-        self.headerRefreshing = YES;
-        
-        [UIView animateWithDuration:0.25 animations:^{
-            UIEdgeInsets inset = self.tableView.contentInset;
-            inset.top += self.header.xmg_height;
-            self.tableView.contentInset = inset;
-        }];
-        NSLog(@"正在请求数据");
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.dataCount = 20;
-            [self.tableView reloadData];
-            self.headerRefreshing = NO;
-            NSLog(@"请求完成");
-            
-            [UIView animateWithDuration:0.25 animations:^{
-                UIEdgeInsets inset = self.tableView.contentInset;
-                inset.top -= self.header.xmg_height;
-                self.tableView.contentInset = inset;
-            }];
-        });
-        
-        
+        [self headerBeginRefreshing];
     }
+}
+
+
+
+
+-(void)loadNewData{
+
+    NSLog(@"正在请求数据");
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.dataCount = 20;
+        [self.tableView reloadData];
+        [self headerEndRefreshing];
+    });
+}
+
+- (void)loadMoreData{
+
+     NSLog(@"正在请求数据");
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.dataCount += 5;
+        [self.tableView reloadData];
+        [self footerEndRefreshing];
+        
+    });
+    
+}
+
+- (void)headerBeginRefreshing{
+    
+     if (self.isHeaderRefreshing) return;
+    self.headerLabel.text = @"正在刷新数据...";
+    self.headerLabel.backgroundColor = [UIColor blueColor];
+    self.headerRefreshing = YES;
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        UIEdgeInsets inset = self.tableView.contentInset;
+        inset.top += self.header.xmg_height;
+        self.tableView.contentInset = inset;
+        
+        self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, - inset.top);
+    }];
+    
+    [self loadNewData];
+    
+    
+    
+
+}
+- (void)headerEndRefreshing{
+    
+    self.headerRefreshing = NO;
+    NSLog(@"请求完成");
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        UIEdgeInsets inset = self.tableView.contentInset;
+        inset.top -= self.header.xmg_height;
+        self.tableView.contentInset = inset;
+        
+    }];
+
+
+}
+- (void)footerBeginRefreshing{
+    
+    if (self.isFooterRefreshing) return;
+    self.footerRefreshing = YES;
+    self.footerLabel.text = @"正在加载更多数据";
+    self.footerLabel.backgroundColor = [UIColor blueColor];
+    
+    [self loadMoreData];
+
+    
+}
+- (void)footerEndRefreshing{
+    
+     NSLog(@"请求完成");
+    self.footerRefreshing = NO;
+    self.footerLabel.text = @"上拉可以加载更多";
+    self.footerLabel.backgroundColor = [UIColor redColor];
+
+    
 }
 
 

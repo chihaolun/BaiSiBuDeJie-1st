@@ -12,7 +12,11 @@
 @property (nonatomic, assign) NSInteger dataCount;
 @property (nonatomic, weak) UIView *footer;
 @property (nonatomic, assign ,getter=isFooterRefreshing) BOOL footerRefreshing;
+@property (nonatomic, assign ,getter=isHeaderRefreshing) BOOL headerRefreshing;
 @property (nonatomic, weak) UILabel *footerLabel;
+@property (nonatomic, weak) UIView *header;
+@property (nonatomic, weak) UILabel *headerLabel;
+
 @end
 
 @implementation XMGAllViewViewController
@@ -30,7 +34,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleButtonDidRepeaatClick) name:XMGTitleButtonDidRepeatClickNotification object:nil];
     [self setUpfresh];
-    NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
+   
     
 }
 
@@ -43,7 +47,7 @@
     if (self.view.window == nil) return;
     if (self.tableView.scrollsToTop == NO) return;
     
-    NSLog(@"刷新数据");
+    
 
 }
 
@@ -55,9 +59,10 @@
 }
 
 - (void)setUpfresh{
-
+    
+    
     UIView *footer = [[UIView alloc] init];
-   footer.frame = CGRectMake(0, 0, self.tableView.xmg_width, 35);
+    footer.frame = CGRectMake(0, 0, self.tableView.xmg_width, 35);
     UILabel *footerLabel = [[UILabel alloc] init];
     footerLabel.frame = footer.bounds;
     footerLabel.text = @"上拉可以加载更多";
@@ -67,9 +72,35 @@
     [footer addSubview:footerLabel];
     self.footer = footer;
     self.tableView.tableFooterView = footer;
-  
-
+    
+    //广告
+    UILabel *label = [[UILabel alloc] init];
+    label.backgroundColor = [UIColor blackColor];
+    label.frame = CGRectMake(0, 0, 0, 30);
+    label.text = @"广告";
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    self.tableView.tableHeaderView = label;
+    
+    
+    //header
+    UIView *header = [[UIView alloc] init];
+    header.frame = CGRectMake(0, -50, self.tableView.xmg_width, 50);
+    self.header = header;
+    [self.tableView addSubview:header];
+    
+    UILabel *headerLabel = [[UILabel alloc] init];
+    headerLabel.frame = header.bounds;
+    headerLabel.backgroundColor = [UIColor redColor];
+    headerLabel.text = @"下拉可以刷新";
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.textAlignment = NSTextAlignmentCenter;
+    self.headerLabel = headerLabel;
+    [header addSubview:headerLabel];
 }
+
+
+
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -99,7 +130,32 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [self dealFooter];
+    
+    [self dealHeader];
 
+}
+
+- (void)dealHeader{
+
+    
+    if (self.isHeaderRefreshing) return;
+    CGFloat offsetY = - (self.tableView.contentInset.top + self.header.xmg_height);
+    
+    if (self.tableView.contentOffset.y <= offsetY) {
+        self.headerLabel.text = @"松开立即刷新";
+        self.headerLabel.backgroundColor = [UIColor grayColor];
+    }else{
+        self.headerLabel.text = @"下拉可以刷新";
+        self.headerLabel.backgroundColor = [UIColor redColor];
+    
+    }
+
+}
+
+- (void)dealFooter{
+    
     if (self.tableView.contentSize.height == 0) return;
     
     if (self.isFooterRefreshing) return;
@@ -124,52 +180,44 @@
         
     }
 
+    
+}
 
+//手松开的时候调用
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+
+    if (self.isHeaderRefreshing) return;
+    
+    CGFloat offsetY = - (self.tableView.contentInset.top + self.header.xmg_height);
+    
+    if (self.tableView.contentOffset.y <= offsetY) {
+        self.headerLabel.text = @"正在刷新数据...";
+        self.headerLabel.backgroundColor = [UIColor blueColor];
+        self.headerRefreshing = YES;
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            UIEdgeInsets inset = self.tableView.contentInset;
+            inset.top += self.header.xmg_height;
+            self.tableView.contentInset = inset;
+        }];
+        NSLog(@"正在请求数据");
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.dataCount = 20;
+            [self.tableView reloadData];
+            self.headerRefreshing = NO;
+            NSLog(@"请求完成");
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                UIEdgeInsets inset = self.tableView.contentInset;
+                inset.top -= self.header.xmg_height;
+                self.tableView.contentInset = inset;
+            }];
+        });
+        
+        
+    }
 }
 
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

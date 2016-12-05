@@ -20,6 +20,7 @@
     self.view.backgroundColor = XMGRandomColor;
     
      self.tableView.contentInset = UIEdgeInsetsMake(XMGNavMaxY + XMGTitlesViewH, 0, XMGTabBarH, 0);
+     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabBarButtonDidRepeaatClick) name:XMGTabBarButtonDidRepeatClickNotification object:nil];
     

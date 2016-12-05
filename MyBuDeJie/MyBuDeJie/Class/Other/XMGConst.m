@@ -11,3 +11,6 @@ NSString * const XMGTabBarButtonDidRepeatClickNotification = @"XMGTabBarButtonDi
 
 NSString * const XMGTitleButtonDidRepeatClickNotification =
 @"XMGTitleButtonDidRepeatClickNotification";
+
+
+NSString * const XMGCommonURL = @"http://api.budejie.com/api/api_open.php";

@@ -7,9 +7,16 @@
 //
 
 #import "XMGAllViewViewController.h"
+#import <AFNetworking.h>
+#import "XMGTopic.h"
+#import <MJExtension.h>
+#import <SVProgressHUD.h>
 
 @interface XMGAllViewViewController ()
-@property (nonatomic, assign) NSInteger dataCount;
+
+@property (nonatomic, copy) NSString *maxtime;
+@property (nonatomic, strong) NSMutableArray *topics;
+
 @property (nonatomic, weak) UIView *footer;
 @property (nonatomic, assign ,getter=isFooterRefreshing) BOOL footerRefreshing;
 @property (nonatomic, assign ,getter=isHeaderRefreshing) BOOL headerRefreshing;
@@ -24,11 +31,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.dataCount = 30;
+    
     
     self.view.backgroundColor = XMGRandomColor;
     
     self.tableView.contentInset = UIEdgeInsetsMake(XMGNavMaxY + XMGTitlesViewH, 0, XMGTabBarH, 0);
+    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabBarButtonDidRepeaatClick) name:XMGTabBarButtonDidRepeatClickNotification object:nil];
     
@@ -107,8 +115,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    self.footer.hidden = (self.dataCount == 0);
-    return self.dataCount;
+    self.footer.hidden = (self.topics.count == 0);
+    return self.topics.count;
 }
 
 
@@ -120,12 +128,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         
-        
-    }
-    cell.textLabel.text = [NSString stringWithFormat:@"%@---%ld",self.class,indexPath.row];
-    cell.backgroundColor = [UIColor clearColor];
+        }
+    XMGTopic *topic = self.topics[indexPath.row];
+    cell.textLabel.text = topic.name;
+    cell.detailTextLabel.text = topic.text;
  
     
     return cell;
@@ -187,25 +195,60 @@
 
 
 
--(void)loadNewData{
+-(void)loadNewTopics{
 
-    NSLog(@"正在请求数据");
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.dataCount = 20;
+    //发请求
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"a"] = @"list";
+    parameters[@"c"] = @"data";
+    parameters[@"type"] = @"31";
+    
+    [mgr GET:XMGCommonURL parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {
+        //XMGAFNWriteToPlist(@"all");
+        self.maxtime = responseObject[@"info"][@"maxtime"];
+       self.topics = [XMGTopic mj_objectArrayWithKeyValuesArray:responseObject[@"list"]];
         [self.tableView reloadData];
         [self headerEndRefreshing];
-    });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"%@",error);
+        [SVProgressHUD showErrorWithStatus:@"网络繁忙，请稍后再试"];
+        [self headerEndRefreshing];
+    }];
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        self.dataCount = 20;
+//        [self.tableView reloadData];
+//        [self headerEndRefreshing];
+//    });
 }
 
-- (void)loadMoreData{
+- (void)loadMoreTopics{
 
-     NSLog(@"正在请求数据");
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.dataCount += 5;
+     //发请求
+    //发请求
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"a"] = @"list";
+    parameters[@"c"] = @"data";
+    parameters[@"type"] = @"31";
+    parameters[@"maxtime"] = self.maxtime;
+    
+    [mgr GET:XMGCommonURL parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {
+        //XMGAFNWriteToPlist(@"all");
+        self.maxtime = responseObject[@"info"][@"maxtime"];
+        NSMutableArray *moreTopics = [XMGTopic mj_objectArrayWithKeyValuesArray:responseObject[@"list"]];
+        
+        [self.topics addObjectsFromArray:moreTopics];
         [self.tableView reloadData];
         [self footerEndRefreshing];
-        
-    });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //        NSLog(@"%@",error);
+        [SVProgressHUD showErrorWithStatus:@"网络繁忙，请稍后再试"];
+        [self footerEndRefreshing];
+    }];
     
 }
 
@@ -224,7 +267,7 @@
         self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, - inset.top);
     }];
     
-    [self loadNewData];
+    [self loadNewTopics];
     
     
     
@@ -233,7 +276,7 @@
 - (void)headerEndRefreshing{
     
     self.headerRefreshing = NO;
-    NSLog(@"请求完成");
+    
     
     [UIView animateWithDuration:0.25 animations:^{
         UIEdgeInsets inset = self.tableView.contentInset;
@@ -251,13 +294,13 @@
     self.footerLabel.text = @"正在加载更多数据";
     self.footerLabel.backgroundColor = [UIColor blueColor];
     
-    [self loadMoreData];
+    [self loadMoreTopics];
 
     
 }
 - (void)footerEndRefreshing{
     
-     NSLog(@"请求完成");
+    
     self.footerRefreshing = NO;
     self.footerLabel.text = @"上拉可以加载更多";
     self.footerLabel.backgroundColor = [UIColor redColor];

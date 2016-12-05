@@ -63,7 +63,7 @@ static NSString * const ID = @"cell";
     parameters[@"a"] = @"square";
     parameters[@"c"] = @"topic";
     
-    [mgr GET:@"http://api.budejie.com/api/api_open.php" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {
+    [mgr GET:XMGCommonURL parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {
         
        NSArray *dictArr = responseObject[@"square_list"];
         

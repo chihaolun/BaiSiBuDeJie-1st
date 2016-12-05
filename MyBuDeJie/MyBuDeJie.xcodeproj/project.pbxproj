@@ -39,6 +39,7 @@
 		325BF8111DEDAA84002FB86E /* XMGSubTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 325BF8101DEDAA84002FB86E /* XMGSubTagViewController.m */; };
 		325BF8141DEDADCF002FB86E /* XMGSubTagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 325BF8131DEDADCF002FB86E /* XMGSubTagItem.m */; };
 		32788CCE1DF1DEC9000A735F /* XMGConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 32788CCD1DF1DEC9000A735F /* XMGConst.m */; };
+		32A9E3671DF5A70600487BBD /* XMGTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A9E3661DF5A70600487BBD /* XMGTopic.m */; };
 		32B957F81DEEF74D004C9FB3 /* XMGFastLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B957F71DEEF74D004C9FB3 /* XMGFastLoginView.m */; };
 		32B957FA1DEEF75F004C9FB3 /* XMGFastLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32B957F91DEEF75F004C9FB3 /* XMGFastLoginView.xib */; };
 		32B957FD1DEEFCBA004C9FB3 /* XMGFastButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B957FC1DEEFCBA004C9FB3 /* XMGFastButton.m */; };
@@ -119,6 +120,8 @@
 		325BF8131DEDADCF002FB86E /* XMGSubTagItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGSubTagItem.m; sourceTree = "<group>"; };
 		32788CCC1DF1DEC9000A735F /* XMGConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGConst.h; sourceTree = "<group>"; };
 		32788CCD1DF1DEC9000A735F /* XMGConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGConst.m; sourceTree = "<group>"; };
+		32A9E3651DF5A70600487BBD /* XMGTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGTopic.h; sourceTree = "<group>"; };
+		32A9E3661DF5A70600487BBD /* XMGTopic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGTopic.m; sourceTree = "<group>"; };
 		32B957F61DEEF74D004C9FB3 /* XMGFastLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGFastLoginView.h; sourceTree = "<group>"; };
 		32B957F71DEEF74D004C9FB3 /* XMGFastLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGFastLoginView.m; sourceTree = "<group>"; };
 		32B957F91DEEF75F004C9FB3 /* XMGFastLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XMGFastLoginView.xib; sourceTree = "<group>"; };
@@ -279,6 +282,8 @@
 		32072C4D1DE7228900E6FFA8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				32A9E3651DF5A70600487BBD /* XMGTopic.h */,
+				32A9E3661DF5A70600487BBD /* XMGTopic.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -775,6 +780,7 @@
 				32072C6D1DE723DF00E6FFA8 /* XMGMeViewController.m in Sources */,
 				325BF8111DEDAA84002FB86E /* XMGSubTagViewController.m in Sources */,
 				32072C671DE7236D00E6FFA8 /* XMGEssenceViewController.m in Sources */,
+				32A9E3671DF5A70600487BBD /* XMGTopic.m in Sources */,
 				32072C731DE7241A00E6FFA8 /* XMGPublishViewController.m in Sources */,
 				32F94E3F1DF0596F00F0251B /* XMGFileTool.m in Sources */,
 				32D8CE681DF1D5C500477CD4 /* XMGPictureViewController.m in Sources */,

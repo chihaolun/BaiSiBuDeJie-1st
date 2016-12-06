@@ -196,7 +196,7 @@
 
 
 -(void)loadNewTopics{
-
+    [self footerEndRefreshing];
     //发请求
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     
@@ -226,7 +226,7 @@
 
 - (void)loadMoreTopics{
 
-     //发请求
+    [self headerEndRefreshing];
     //发请求
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     

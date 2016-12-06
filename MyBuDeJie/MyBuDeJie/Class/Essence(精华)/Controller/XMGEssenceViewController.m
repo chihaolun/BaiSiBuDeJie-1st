@@ -147,21 +147,26 @@
     if (self.previousClickedTitleButton == button) {
         [[NSNotificationCenter defaultCenter] postNotificationName:XMGTitleButtonDidRepeatClickNotification object:nil];
     }
-    
+    [self dealTitleButtonClick:button];
+   
+}
+
+- (void)dealTitleButtonClick:(XMGTitleButton *)button{
+
     self.previousClickedTitleButton.selected = NO;
     button.selected = YES;
     self.previousClickedTitleButton = button;
     
     NSUInteger index = button.tag;
-[UIView animateWithDuration:0.15 animations:^{
-    self.titleUnderLine.xmg_width = button.titleLabel.xmg_width + 10;
-    self.titleUnderLine.xmg_centerX = button.xmg_centerX;
-    
-    CGFloat offsetX = self.scrollView.xmg_width * index;
-    self.scrollView.contentOffset = CGPointMake(offsetX, self.scrollView.contentOffset.y);
-} completion:^(BOOL finished) {
-    [self addChildVcViewInToScrollView:index];
-}];
+    [UIView animateWithDuration:0.15 animations:^{
+        self.titleUnderLine.xmg_width = button.titleLabel.xmg_width + 10;
+        self.titleUnderLine.xmg_centerX = button.xmg_centerX;
+        
+        CGFloat offsetX = self.scrollView.xmg_width * index;
+        self.scrollView.contentOffset = CGPointMake(offsetX, self.scrollView.contentOffset.y);
+    } completion:^(BOOL finished) {
+        [self addChildVcViewInToScrollView:index];
+    }];
     
     for (NSUInteger i = 0; i < self.childViewControllers.count; i++) {
         UIViewController *childVc = self.childViewControllers[i];
@@ -173,6 +178,7 @@
         scrollView.scrollsToTop = (i == index);
     }
 
+    
 }
 
 - (void)setupNavBar{
@@ -200,7 +206,7 @@
 
     NSInteger index = scrollView.contentOffset.x / scrollView.xmg_width;
     XMGTitleButton *titleButton = self.titlesView.subviews[index];
-    [self titleButtonClick:titleButton];
+    [self dealTitleButtonClick:titleButton];
 
 }
 

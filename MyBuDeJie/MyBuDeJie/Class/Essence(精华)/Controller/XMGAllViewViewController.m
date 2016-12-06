@@ -11,6 +11,7 @@
 #import "XMGTopic.h"
 #import <MJExtension.h>
 #import <SVProgressHUD.h>
+#import "XMGTopicCell.h"
 
 @interface XMGAllViewViewController ()
 
@@ -28,6 +29,8 @@
 
 @implementation XMGAllViewViewController
 
+static NSString * const XMGTopicCellID = @"XMGTopicCellID";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -42,6 +45,10 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleButtonDidRepeaatClick) name:XMGTitleButtonDidRepeatClickNotification object:nil];
     [self setUpfresh];
+    
+    //self.tableView.rowHeight = 200;
+    //注册cell
+    [self.tableView registerNib:[UINib nibWithNibName:@"XMGTopicCell" bundle:nil] forCellReuseIdentifier:XMGTopicCellID];
    
     
 }
@@ -122,18 +129,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *ID = @"cell";
     
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-        
-        }
-    XMGTopic *topic = self.topics[indexPath.row];
-    cell.textLabel.text = topic.name;
-    cell.detailTextLabel.text = topic.text;
+    XMGTopicCell *cell = [tableView dequeueReusableCellWithIdentifier:XMGTopicCellID];
+    
+    
+    cell.topic = self.topics[indexPath.row];
+    
  
     
     return cell;

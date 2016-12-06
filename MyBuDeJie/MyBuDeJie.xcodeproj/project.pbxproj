@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1E817CD6582DBD698F2E006E /* libPods-MyBuDeJie.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC41AA3557D3D42BE8D9D8B6 /* libPods-MyBuDeJie.a */; };
+		32019ABE1DF6EF3D00E4C99C /* XMGTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32019ABD1DF6EF3D00E4C99C /* XMGTopicCell.m */; };
+		32019AC01DF6EF5D00E4C99C /* XMGTopicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32019ABF1DF6EF5D00E4C99C /* XMGTopicCell.xib */; };
 		32072C3E1DE7210B00E6FFA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32072C3C1DE7210B00E6FFA8 /* Main.storyboard */; };
 		32072C401DE7210B00E6FFA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32072C3F1DE7210B00E6FFA8 /* Assets.xcassets */; };
 		32072C431DE7210B00E6FFA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32072C411DE7210B00E6FFA8 /* LaunchScreen.storyboard */; };
@@ -69,6 +71,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		32019ABC1DF6EF3D00E4C99C /* XMGTopicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGTopicCell.h; sourceTree = "<group>"; };
+		32019ABD1DF6EF3D00E4C99C /* XMGTopicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGTopicCell.m; sourceTree = "<group>"; };
+		32019ABF1DF6EF5D00E4C99C /* XMGTopicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XMGTopicCell.xib; sourceTree = "<group>"; };
 		32072C301DE7210B00E6FFA8 /* MyBuDeJie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyBuDeJie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32072C3D1DE7210B00E6FFA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		32072C3F1DE7210B00E6FFA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -293,6 +298,9 @@
 			children = (
 				32D8CE5A1DF1C9FA00477CD4 /* XMGTitleButton.h */,
 				32D8CE5B1DF1C9FA00477CD4 /* XMGTitleButton.m */,
+				32019ABC1DF6EF3D00E4C99C /* XMGTopicCell.h */,
+				32019ABD1DF6EF3D00E4C99C /* XMGTopicCell.m */,
+				32019ABF1DF6EF5D00E4C99C /* XMGTopicCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -696,6 +704,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32019AC01DF6EF5D00E4C99C /* XMGTopicCell.xib in Resources */,
 				32D705781DEEAB8D00FE39C9 /* XMGFriendTrendViewController.xib in Resources */,
 				3256D58E1DEC6BC1000AADD6 /* XMGADViewController.xib in Resources */,
 				3256D59B1DEC6F9D000AADD6 /* LaunchImage-800-Portrait-736h@3x.png in Resources */,
@@ -777,6 +786,7 @@
 				3256D57A1DEC54EF000AADD6 /* UIBarButtonItem+Item.m in Sources */,
 				32D8CE651DF1D5B300477CD4 /* XMGVoiceViewController.m in Sources */,
 				32D8CE6B1DF1D5D800477CD4 /* XMGWordViewController.m in Sources */,
+				32019ABE1DF6EF3D00E4C99C /* XMGTopicCell.m in Sources */,
 				32072C6D1DE723DF00E6FFA8 /* XMGMeViewController.m in Sources */,
 				325BF8111DEDAA84002FB86E /* XMGSubTagViewController.m in Sources */,
 				32072C671DE7236D00E6FFA8 /* XMGEssenceViewController.m in Sources */,

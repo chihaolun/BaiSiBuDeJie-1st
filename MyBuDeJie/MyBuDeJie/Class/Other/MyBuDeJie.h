@@ -12,6 +12,7 @@
 #define XMGColor(r,g,b)  [UIColor colorWithRed:(r) / 256.0 green:(g) / 256.0 blue:(b) / 256.0 alpha:1]
 
 #define XMGRandomColor XMGColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
+#define XMGGrayColor(v) XMGColor(v,v,v)
 
 #define XMGAFNWriteToPlist(fileName) [responseObject writeToFile:[NSString stringWithFormat:@"/Users/chihaolun/Desktop/%@.plist",fileName] atomically:YES]
 /***********屏幕适配*************/

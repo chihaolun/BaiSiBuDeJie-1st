@@ -34,10 +34,20 @@ static NSString * const ID = @"cell";
     [self loadData];
     self.tableView.showsVerticalScrollIndicator =NO;
     self.tableView.sectionHeaderHeight = 0;
-    self.tableView.sectionFooterHeight = 10;
+    self.tableView.sectionFooterHeight = XMGMarin;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(-25, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(XMGMarin - 35, 0, 0, 0);
+//    NSLog(@"%@",NSStringFromUIEdgeInsets(self.tableView.contentInset));
+//    NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    NSLog(@"%@",NSStringFromUIEdgeInsets(self.tableView.contentInset));
+    NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
+
+
 }
 
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

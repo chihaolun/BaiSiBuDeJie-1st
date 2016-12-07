@@ -14,3 +14,5 @@ NSString * const XMGTitleButtonDidRepeatClickNotification =
 
 
 NSString * const XMGCommonURL = @"http://api.budejie.com/api/api_open.php";
+
+CGFloat const XMGMarin = 10;

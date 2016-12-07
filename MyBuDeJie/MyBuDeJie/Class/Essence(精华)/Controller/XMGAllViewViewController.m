@@ -34,9 +34,9 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    
-    self.view.backgroundColor = XMGRandomColor;
+    self.view.backgroundColor = XMGGrayColor(206);
     
     self.tableView.contentInset = UIEdgeInsetsMake(XMGNavMaxY + XMGTitlesViewH, 0, XMGTabBarH, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
@@ -46,7 +46,7 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleButtonDidRepeaatClick) name:XMGTitleButtonDidRepeatClickNotification object:nil];
     [self setUpfresh];
     
-    //self.tableView.rowHeight = 200;
+    self.tableView.rowHeight = 200;
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"XMGTopicCell" bundle:nil] forCellReuseIdentifier:XMGTopicCellID];
    

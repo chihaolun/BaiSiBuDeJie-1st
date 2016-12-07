@@ -40,6 +40,7 @@
 		325BF80E1DED7B1E002FB86E /* XMGADItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 325BF80D1DED7B1E002FB86E /* XMGADItem.m */; };
 		325BF8111DEDAA84002FB86E /* XMGSubTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 325BF8101DEDAA84002FB86E /* XMGSubTagViewController.m */; };
 		325BF8141DEDADCF002FB86E /* XMGSubTagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 325BF8131DEDADCF002FB86E /* XMGSubTagItem.m */; };
+		32634A971DF8088600B3E46A /* UIImage+Antialias.m in Sources */ = {isa = PBXBuildFile; fileRef = 32634A961DF8088600B3E46A /* UIImage+Antialias.m */; };
 		32788CCE1DF1DEC9000A735F /* XMGConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 32788CCD1DF1DEC9000A735F /* XMGConst.m */; };
 		32A9E3671DF5A70600487BBD /* XMGTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A9E3661DF5A70600487BBD /* XMGTopic.m */; };
 		32B957F81DEEF74D004C9FB3 /* XMGFastLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B957F71DEEF74D004C9FB3 /* XMGFastLoginView.m */; };
@@ -123,6 +124,8 @@
 		325BF8101DEDAA84002FB86E /* XMGSubTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGSubTagViewController.m; sourceTree = "<group>"; };
 		325BF8121DEDADCF002FB86E /* XMGSubTagItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGSubTagItem.h; sourceTree = "<group>"; };
 		325BF8131DEDADCF002FB86E /* XMGSubTagItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGSubTagItem.m; sourceTree = "<group>"; };
+		32634A951DF8088600B3E46A /* UIImage+Antialias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Antialias.h"; sourceTree = "<group>"; };
+		32634A961DF8088600B3E46A /* UIImage+Antialias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Antialias.m"; sourceTree = "<group>"; };
 		32788CCC1DF1DEC9000A735F /* XMGConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGConst.h; sourceTree = "<group>"; };
 		32788CCD1DF1DEC9000A735F /* XMGConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGConst.m; sourceTree = "<group>"; };
 		32A9E3651DF5A70600487BBD /* XMGTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGTopic.h; sourceTree = "<group>"; };
@@ -604,6 +607,8 @@
 		32C4EA9C1DE9532700E3D04C /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				32634A951DF8088600B3E46A /* UIImage+Antialias.h */,
+				32634A961DF8088600B3E46A /* UIImage+Antialias.m */,
 				32C4EA9D1DE9533E00E3D04C /* UIImage+Image.h */,
 				32C4EA9E1DE9533E00E3D04C /* UIImage+Image.m */,
 				3256D5741DEC512E000AADD6 /* UIView+Frame.h */,
@@ -786,6 +791,7 @@
 				3256D57A1DEC54EF000AADD6 /* UIBarButtonItem+Item.m in Sources */,
 				32D8CE651DF1D5B300477CD4 /* XMGVoiceViewController.m in Sources */,
 				32D8CE6B1DF1D5D800477CD4 /* XMGWordViewController.m in Sources */,
+				32634A971DF8088600B3E46A /* UIImage+Antialias.m in Sources */,
 				32019ABE1DF6EF3D00E4C99C /* XMGTopicCell.m in Sources */,
 				32072C6D1DE723DF00E6FFA8 /* XMGMeViewController.m in Sources */,
 				325BF8111DEDAA84002FB86E /* XMGSubTagViewController.m in Sources */,

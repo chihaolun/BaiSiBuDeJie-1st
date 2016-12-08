@@ -17,4 +17,6 @@
 @property CGFloat xmg_centerX;
 @property CGFloat xmg_centerY;
 
++ (instancetype)xmg_viewFromXib;
+
 @end

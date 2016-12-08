@@ -44,10 +44,20 @@ typedef NS_ENUM(NSUInteger, XMGTopicType){
 /** 评论数量 */
 @property (nonatomic, assign) NSInteger comment;
 
-@property (nonatomic, assign) CGFloat cellHeight;
-
 @property (nonatomic, strong) NSArray *top_cmt;
 
 @property (nonatomic, assign) NSInteger type;
+
+
+@property (nonatomic, assign) NSInteger width;
+
+@property (nonatomic, assign) NSInteger height;
+
+//在模型cellheight属性的get方法中计算高度和尺寸 把尺寸保存到自己属性中  这样模型传递的时候就把尺寸传出去了
+
+@property (nonatomic, assign) CGRect middleFrame;
+
+@property (nonatomic, assign) CGFloat cellHeight;
+
 
 @end

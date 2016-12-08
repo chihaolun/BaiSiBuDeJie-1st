@@ -218,7 +218,7 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"a"] = @"list";
     parameters[@"c"] = @"data";
-    parameters[@"type"] = @"31";
+    parameters[@"type"] = @"1";
     
     [mgr GET:XMGCommonURL parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {
         //XMGAFNWriteToPlist(@"all");
@@ -248,7 +248,7 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"a"] = @"list";
     parameters[@"c"] = @"data";
-    parameters[@"type"] = @"31";
+    parameters[@"type"] = @"1";
     parameters[@"maxtime"] = self.maxtime;
     
     [mgr GET:XMGCommonURL parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {

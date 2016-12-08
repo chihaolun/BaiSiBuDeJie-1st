@@ -15,4 +15,7 @@
 - (instancetype)xmg_circleImage;
 
 + (instancetype)xmg_circleImageNamed:(NSString *)name;
+
+
+
 @end

@@ -11,6 +11,10 @@
 #import <UIImageView+WebCache.h>
 #import "UIImage+Image.h"
 
+#import "XMGTopicVideoView.h"
+#import "XMGTopicPictureView.h"
+#import "XMGTopicVoiceView.h"
+
 @interface XMGTopicCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -28,11 +32,52 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *topCmtLabel;
 
+/* 中间控件 */
+/** 图片控件 */
+@property (nonatomic, weak) XMGTopicPictureView *pictureView;
+/** 声音控件 */
+@property (nonatomic, weak) XMGTopicVoiceView *voiceView;
+/** 视频控件 */
+@property (nonatomic, weak) XMGTopicVideoView *videoView;
 
 
 @end
 
 @implementation XMGTopicCell
+
+
+#pragma mark - 懒加载
+- (XMGTopicPictureView *)pictureView
+{
+    if (!_pictureView) {
+        XMGTopicPictureView *pictureView = [XMGTopicPictureView xmg_viewFromXib];
+        [self.contentView addSubview:pictureView];
+        _pictureView = pictureView;
+    }
+    return _pictureView;
+}
+
+- (XMGTopicVoiceView *)voiceView
+{
+    if (!_voiceView) {
+        XMGTopicVoiceView *voiceView = [XMGTopicVoiceView xmg_viewFromXib];
+        [self.contentView addSubview:voiceView];
+        _voiceView = voiceView;
+    }
+    return _voiceView;
+}
+
+- (XMGTopicVideoView *)videoView
+{
+    if (!_videoView) {
+        XMGTopicVideoView *videoView = [XMGTopicVideoView xmg_viewFromXib];
+        [self.contentView addSubview:videoView];
+        _videoView = videoView;
+    }
+    return _videoView;
+}
+
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -85,6 +130,39 @@
     
     }
     
+    
+    if (topic.type == XMGTopicTypePicture) {
+        self.pictureView.hidden = NO;
+        self.voiceView.hidden = YES;
+        self.videoView.hidden = YES;
+    }else if (topic.type == XMGTopicTypeVoice){
+        self.pictureView.hidden = YES;
+        self.voiceView.hidden = NO;
+        self.videoView.hidden = YES;
+    }else if (topic.type == XMGTopicTypeVideo){
+        self.pictureView.hidden = YES;
+        self.voiceView.hidden = YES;
+        self.videoView.hidden = NO;
+    }else if (topic.type == XMGTopicTypeWord){
+        self.pictureView.hidden = YES;
+        self.voiceView.hidden = YES;
+        self.videoView.hidden = YES;
+    }
+    
+}
+
+- (void)layoutSubviews{
+
+    [super layoutSubviews];
+    
+    if (self.topic.type == XMGTopicTypePicture) {
+        self.pictureView.frame = self.topic.middleFrame;
+    }else if (self.topic.type == XMGTopicTypeVoice){
+        self.voiceView.frame = self.topic.middleFrame;
+    }else if (self.topic.type == XMGTopicTypeVideo){
+        self.videoView.frame = self.topic.middleFrame;
+    }
+
 }
 
 - (void)setupButtonTitle:(UIButton *)button number:(NSInteger)number placeholder:(NSString *)placeholder{

@@ -22,6 +22,19 @@
     
     _cellHeight += [self.text boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]} context:nil].size.height + XMGMarin;
     
+    if (self.type != XMGTopicTypeWord) {
+        
+        CGFloat middleW = textMaxSize.width;
+        CGFloat middleH = middleW * self.height / self.width;
+        CGFloat middleY = _cellHeight;
+        CGFloat middleX = XMGMarin;
+        
+       self.middleFrame = CGRectMake(middleX, middleY, middleW, middleH);
+        
+        _cellHeight += middleH + XMGMarin;
+    }
+    
+    
     
     if (self.top_cmt.count) {
         _cellHeight += 21;

@@ -42,7 +42,7 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.view.backgroundColor = XMGGrayColor(206);
-    
+    self.tableView.estimatedRowHeight = 100;
     self.tableView.contentInset = UIEdgeInsetsMake(XMGNavMaxY + XMGTitlesViewH, 0, XMGTabBarH, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     

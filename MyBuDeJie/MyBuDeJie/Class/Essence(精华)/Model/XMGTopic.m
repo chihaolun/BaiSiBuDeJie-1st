@@ -14,16 +14,34 @@
     
     if (_cellHeight) return _cellHeight;
     
-    CGFloat cellHeight = 0;
     
-    cellHeight += 55;
+    
+    _cellHeight += 55;
     
     CGSize textMaxSize = CGSizeMake(XMGScreenW - 2 * XMGMarin,MAXFLOAT);
     
-    cellHeight += [self.text boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]} context:nil].size.height + XMGMarin;
-    cellHeight += 35 + XMGMarin;
+    _cellHeight += [self.text boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]} context:nil].size.height + XMGMarin;
     
-    return cellHeight;
+    
+    if (self.top_cmt.count) {
+        _cellHeight += 21;
+        
+        NSDictionary *cmt = self.top_cmt.firstObject;
+        NSString *content = cmt[@"content"];
+        NSString *username = cmt[@"user"][@"username"];
+        if (content.length == 0) {
+            content = @"[语音评论]";
+        }
+        NSString *cmtText = [NSString stringWithFormat:@"%@ : %@",username,content];
+        
+        _cellHeight += [cmtText boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]} context:nil].size.height + XMGMarin;
+    }
+    
+    
+    
+    _cellHeight += 35 + XMGMarin;
+    
+    return _cellHeight;
 
 }
 

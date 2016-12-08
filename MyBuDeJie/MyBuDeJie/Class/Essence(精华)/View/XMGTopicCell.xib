@@ -150,12 +150,42 @@
                             <constraint firstItem="QcO-rl-RKR" firstAttribute="leading" secondItem="T58-ks-uB7" secondAttribute="trailing" id="zLw-Wi-2Ac"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tk1-rQ-kdq">
+                        <rect key="frame" x="10" y="295" width="300" height="57"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最热评论" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIZ-52-dsl">
+                                <rect key="frame" x="0.0" y="0.0" width="70" height="21"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评论内容评论内容评论内容v评论内容评论内容评论内容评论内容评论内容评论内容" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXs-Ww-du2">
+                                <rect key="frame" x="0.0" y="21" width="300" height="36"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="zIZ-52-dsl" firstAttribute="leading" secondItem="Tk1-rQ-kdq" secondAttribute="leading" id="Bxg-1x-Ilv"/>
+                            <constraint firstAttribute="trailing" secondItem="cXs-Ww-du2" secondAttribute="trailing" id="Jo5-hk-Aa3"/>
+                            <constraint firstItem="cXs-Ww-du2" firstAttribute="leading" secondItem="Tk1-rQ-kdq" secondAttribute="leading" id="Z55-rt-oAB"/>
+                            <constraint firstItem="cXs-Ww-du2" firstAttribute="top" secondItem="zIZ-52-dsl" secondAttribute="bottom" id="maN-jR-phR"/>
+                            <constraint firstAttribute="bottom" secondItem="cXs-Ww-du2" secondAttribute="bottom" id="qa4-0e-mlq"/>
+                            <constraint firstItem="zIZ-52-dsl" firstAttribute="top" secondItem="Tk1-rQ-kdq" secondAttribute="top" id="r4H-ld-knf"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Tk1-rQ-kdq" firstAttribute="trailing" secondItem="5Iw-KU-t50" secondAttribute="trailing" id="509-iF-exm"/>
                     <constraint firstAttribute="trailing" secondItem="iu3-96-mud" secondAttribute="trailing" constant="10" id="5mA-03-hJd"/>
                     <constraint firstItem="bjz-g3-hbw" firstAttribute="leading" secondItem="PYY-vu-F4g" secondAttribute="leading" constant="10" id="BBh-OR-NMO"/>
                     <constraint firstItem="8bM-4b-KYu" firstAttribute="leading" secondItem="PYY-vu-F4g" secondAttribute="leading" id="Cgf-dL-rru"/>
                     <constraint firstItem="c7H-Ry-V6w" firstAttribute="leading" secondItem="bjz-g3-hbw" secondAttribute="trailing" constant="10" id="DTa-og-whC"/>
+                    <constraint firstItem="8bM-4b-KYu" firstAttribute="top" secondItem="Tk1-rQ-kdq" secondAttribute="bottom" constant="10" id="Jcz-uF-MAF"/>
                     <constraint firstAttribute="trailing" secondItem="5Iw-KU-t50" secondAttribute="trailing" constant="10" id="KvU-aI-3Df"/>
                     <constraint firstItem="bjz-g3-hbw" firstAttribute="top" secondItem="PYY-vu-F4g" secondAttribute="top" constant="10" id="M8z-pP-xmI"/>
                     <constraint firstItem="IyV-F5-TvI" firstAttribute="leading" secondItem="bjz-g3-hbw" secondAttribute="trailing" constant="10" id="MZG-1e-aaq"/>
@@ -163,6 +193,7 @@
                     <constraint firstItem="c7H-Ry-V6w" firstAttribute="bottom" secondItem="bjz-g3-hbw" secondAttribute="bottom" id="Ql4-hV-Tg3"/>
                     <constraint firstAttribute="bottom" secondItem="8bM-4b-KYu" secondAttribute="bottom" id="WHW-Tt-Y5C"/>
                     <constraint firstItem="iu3-96-mud" firstAttribute="top" secondItem="bjz-g3-hbw" secondAttribute="bottom" constant="10" id="eyA-Uj-eh5"/>
+                    <constraint firstItem="Tk1-rQ-kdq" firstAttribute="leading" secondItem="bjz-g3-hbw" secondAttribute="leading" id="kFO-e9-1wq"/>
                     <constraint firstItem="IyV-F5-TvI" firstAttribute="top" secondItem="bjz-g3-hbw" secondAttribute="top" id="lq8-d1-KmT"/>
                     <constraint firstItem="5Iw-KU-t50" firstAttribute="top" secondItem="PYY-vu-F4g" secondAttribute="top" constant="10" id="ubz-1C-aXy"/>
                     <constraint firstItem="iu3-96-mud" firstAttribute="leading" secondItem="PYY-vu-F4g" secondAttribute="leading" constant="10" id="zNO-z5-txP"/>
@@ -177,6 +208,8 @@
                 <outlet property="profileImageView" destination="bjz-g3-hbw" id="hlx-kj-BnB"/>
                 <outlet property="respostButton" destination="SLD-IE-6mT" id="HjJ-cU-bvi"/>
                 <outlet property="text_label" destination="iu3-96-mud" id="N7f-IP-gTL"/>
+                <outlet property="topCmtLabel" destination="cXs-Ww-du2" id="Mto-g5-mMj"/>
+                <outlet property="topCmtView" destination="Tk1-rQ-kdq" id="vag-PK-zdw"/>
             </connections>
             <point key="canvasLocation" x="-124" y="-149"/>
         </tableViewCell>

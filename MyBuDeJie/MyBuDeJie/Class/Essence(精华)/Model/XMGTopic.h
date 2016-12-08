@@ -46,4 +46,8 @@ typedef NS_ENUM(NSUInteger, XMGTopicType){
 
 @property (nonatomic, assign) CGFloat cellHeight;
 
+@property (nonatomic, strong) NSArray *top_cmt;
+
+@property (nonatomic, assign) NSInteger type;
+
 @end

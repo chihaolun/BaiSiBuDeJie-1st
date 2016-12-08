@@ -24,7 +24,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 
+@property (weak, nonatomic) IBOutlet UIView *topCmtView;
 
+@property (weak, nonatomic) IBOutlet UILabel *topCmtLabel;
 
 
 
@@ -54,6 +56,8 @@
         self.profileImageView.image = [image xmg_circleImage];
        
     }];
+    
+    
 
     
     self.nameLabel.text = topic.name;
@@ -65,6 +69,21 @@
     [self setupButtonTitle:self.respostButton number:topic.repost placeholder:@"分享"];
     [self setupButtonTitle:self.commentButton number:topic.comment placeholder:@"评论"];
     
+    
+    if (topic.top_cmt.count) {
+        self.topCmtView.hidden = NO;
+        NSDictionary *cmt = topic.top_cmt.firstObject;
+        NSString *content = cmt[@"content"];
+        NSString *username = cmt[@"user"][@"username"];
+        if (content.length == 0) {
+            content = @"[语音评论]";
+        }
+        self.topCmtLabel.text = [NSString stringWithFormat:@"%@ : %@",username,content];
+    }else{
+    
+        self.topCmtView.hidden = YES;
+    
+    }
     
 }
 

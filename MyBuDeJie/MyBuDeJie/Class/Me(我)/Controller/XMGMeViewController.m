@@ -37,31 +37,22 @@ static NSString * const ID = @"cell";
     self.tableView.sectionFooterHeight = XMGMarin;
     
     self.tableView.contentInset = UIEdgeInsetsMake(XMGMarin - 35, 0, 0, 0);
-//    NSLog(@"%@",NSStringFromUIEdgeInsets(self.tableView.contentInset));
-//    NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    NSLog(@"%@",NSStringFromUIEdgeInsets(self.tableView.contentInset));
-    NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
-
+ 
 
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//    NSLog(@"%@", NSStringFromCGRect(cell.frame));
-//
-//}
-//
 //- (void)viewDidAppear:(BOOL)animated{
 //
 //    [super viewDidAppear:animated];
+//    
 //    NSLog(@"%@",NSStringFromUIEdgeInsets(self.tableView.contentInset));
+//    
 //}
+
+
+
+
+
 #pragma mark - 加载数据
 
 - (void)loadData{

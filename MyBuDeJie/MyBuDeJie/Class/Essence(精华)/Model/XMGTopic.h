@@ -44,4 +44,6 @@ typedef NS_ENUM(NSUInteger, XMGTopicType){
 /** 评论数量 */
 @property (nonatomic, assign) NSInteger comment;
 
+@property (nonatomic, assign) CGFloat cellHeight;
+
 @end

@@ -25,9 +25,14 @@
 @property (nonatomic, weak) UIView *header;
 @property (nonatomic, weak) UILabel *headerLabel;
 
+
+
 @end
 
 @implementation XMGAllViewViewController
+
+
+
 
 static NSString * const XMGTopicCellID = @"XMGTopicCellID";
 
@@ -46,7 +51,7 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleButtonDidRepeaatClick) name:XMGTitleButtonDidRepeatClickNotification object:nil];
     [self setUpfresh];
     
-    self.tableView.rowHeight = 200;
+    //self.tableView.rowHeight = 200;
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"XMGTopicCell" bundle:nil] forCellReuseIdentifier:XMGTopicCellID];
    
@@ -117,7 +122,14 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
 }
 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
+    XMGTopic *topic = self.topics[indexPath.row];
+    return topic.cellHeight;
+    
+    
+
+}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

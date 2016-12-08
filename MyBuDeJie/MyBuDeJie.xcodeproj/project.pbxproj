@@ -240,8 +240,8 @@
 			children = (
 				32072C4A1DE7228900E6FFA8 /* Class */,
 				32072C3F1DE7210B00E6FFA8 /* Assets.xcassets */,
-				32072C3C1DE7210B00E6FFA8 /* Main.storyboard */,
 				32072C411DE7210B00E6FFA8 /* LaunchScreen.storyboard */,
+				32072C3C1DE7210B00E6FFA8 /* Main.storyboard */,
 				32072C441DE7210B00E6FFA8 /* Info.plist */,
 				32072C331DE7210B00E6FFA8 /* Supporting Files */,
 			);
@@ -259,11 +259,11 @@
 		32072C4A1DE7228900E6FFA8 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				32072C5B1DE7228900E6FFA8 /* Other */,
 				32F94E3B1DF0595700F0251B /* Tool */,
 				3256D5861DEC6B74000AADD6 /* AD(广告) */,
 				3256D57F1DEC628D000AADD6 /* Setting(设置) */,
 				32C4EA951DE950F100E3D04C /* Main(主要) */,
-				32072C5B1DE7228900E6FFA8 /* Other */,
 				32072C4B1DE7228900E6FFA8 /* Essence(精华) */,
 				32072C4F1DE7228900E6FFA8 /* FriendTrend(关注) */,
 				32072C531DE7228900E6FFA8 /* Me(我) */,

@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 
 #import "XMGADViewController.h"
-
+#import <AFNetworking.h>
 
 @interface AppDelegate ()
 
@@ -29,10 +29,14 @@
     XMGADViewController *adVc = [[XMGADViewController alloc] init];
     self.window.rootViewController = adVc;
     
+    
+    
     // 2.1 添加子控制器(5个子控制器) -> 自定义控制器 -> 划分项目文件结构
     // 精华
     // 3.显示窗口 1.成为UIApplication主窗口 2.
     [self.window makeKeyAndVisible];
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 
     return YES;
 }

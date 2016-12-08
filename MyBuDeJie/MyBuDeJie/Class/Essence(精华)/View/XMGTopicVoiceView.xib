@@ -11,13 +11,61 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="XMGTopicVoiceView">
-            <rect key="frame" x="0.0" y="0.0" width="236" height="101"/>
+        <view contentMode="scaleToFill" id="4YB-4b-tP7" userLabel="Topic Voice View" customClass="XMGTopicVoiceView">
+            <rect key="frame" x="0.0" y="0.0" width="310" height="217"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="if0-xf-EU4">
+                    <rect key="frame" x="0.0" y="0.0" width="310" height="217"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4242次播放" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qng-P0-PXN">
+                    <rect key="frame" x="227" y="0.0" width="83" height="18"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59899400680000003" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="03:20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7r-l6-q1v">
+                    <rect key="frame" x="269" y="199" width="41" height="18"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59899400680000003" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xka-Mx-fJX">
+                    <rect key="frame" x="124" y="77" width="63" height="63"/>
+                    <state key="normal" image="playButtonPlay" backgroundImage="playButton">
+                        <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted" backgroundImage="playButtonClick"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="xka-Mx-fJX" firstAttribute="centerX" secondItem="4YB-4b-tP7" secondAttribute="centerX" id="2Lo-cU-tmv"/>
+                <constraint firstItem="if0-xf-EU4" firstAttribute="top" secondItem="4YB-4b-tP7" secondAttribute="top" id="7tc-EA-ZNZ"/>
+                <constraint firstItem="if0-xf-EU4" firstAttribute="leading" secondItem="4YB-4b-tP7" secondAttribute="leading" id="PX9-DC-lev"/>
+                <constraint firstAttribute="bottom" secondItem="o7r-l6-q1v" secondAttribute="bottom" id="acf-YP-643"/>
+                <constraint firstAttribute="trailing" secondItem="if0-xf-EU4" secondAttribute="trailing" id="bYi-xi-Qas"/>
+                <constraint firstAttribute="trailing" secondItem="o7r-l6-q1v" secondAttribute="trailing" id="mye-Xw-Bzi"/>
+                <constraint firstAttribute="bottom" secondItem="if0-xf-EU4" secondAttribute="bottom" id="qTe-se-jbP"/>
+                <constraint firstItem="Qng-P0-PXN" firstAttribute="top" secondItem="4YB-4b-tP7" secondAttribute="top" id="vko-S7-8Jw"/>
+                <constraint firstAttribute="trailing" secondItem="Qng-P0-PXN" secondAttribute="trailing" id="w0l-qm-3VE"/>
+                <constraint firstItem="xka-Mx-fJX" firstAttribute="centerY" secondItem="4YB-4b-tP7" secondAttribute="centerY" id="ySO-hi-T9q"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-21" y="337.5"/>
+            <connections>
+                <outlet property="imageView" destination="if0-xf-EU4" id="biz-gK-imf"/>
+                <outlet property="playcountLabel" destination="Qng-P0-PXN" id="rrK-ng-H6L"/>
+                <outlet property="voicetimeLabel" destination="o7r-l6-q1v" id="TIm-70-bWu"/>
+            </connections>
+            <point key="canvasLocation" x="18" y="220"/>
         </view>
     </objects>
+    <resources>
+        <image name="playButton" width="63" height="63"/>
+        <image name="playButtonClick" width="63" height="63"/>
+        <image name="playButtonPlay" width="30" height="30"/>
+    </resources>
 </document>

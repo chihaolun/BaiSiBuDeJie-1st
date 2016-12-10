@@ -33,39 +33,10 @@
 
     _topic = topic;
     
-    UIImage *placeholder = nil;
+//    UIImage *placeholder = nil;
+    [self.imageView xmg_setOriginImage:topic.image1 thumnailImage:topic.image0 placeholder:nil];
     
-    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
-    //从内存和沙盒中获得原图
-    UIImage *originImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:topic.image1];
-    
-    if (originImage) {//图片被下载过
-        self.imageView.image = originImage;
-    }else{//图片没被下载过
-        if (mgr.isReachableViaWiFi) {//如果是wifi就下载高清大图
-            [self.imageView sd_setImageWithURL:[NSURL URLWithString:topic.image1] placeholderImage:placeholder];
-        }else if (mgr.isReachableViaWWAN){//如果是移动网络
         
-            BOOL downloadOriginImageWhen3Gor4G = YES;//“3G/4G下下载高清大图”
-            if (downloadOriginImageWhen3Gor4G) {//开启“3G/4G下下载高清大图”功能
-                [self.imageView sd_setImageWithURL:[NSURL URLWithString:topic.image1] placeholderImage:placeholder];
-            }else{//关闭“3G/4G下下载高清大图”功能
-            [self.imageView sd_setImageWithURL:[NSURL URLWithString:topic.image0] placeholderImage:placeholder];
-            
-            }
-            
-        }else{//没有网络,先看看沙盒中下没下载过小图
-            UIImage *thumbnailImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:topic.image0];
-            
-            if (thumbnailImage) {//沙盒中下载过小图
-                self.imageView.image = thumbnailImage;
-            }else{//没下载过小图
-                self.imageView.image = placeholder;
-            
-            }
-        }
-    }
-    
     if (topic.playcount >= 10000) {
         self.playcountLabel.text = [NSString stringWithFormat:@"%.1f万播放",topic.playcount / 10000.0];
     }else{

@@ -59,6 +59,7 @@
 		32B9580A1DEF109A004C9FB3 /* XMGSquareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32B958081DEF109A004C9FB3 /* XMGSquareCell.xib */; };
 		32C4EA9B1DE9513900E3D04C /* XMGTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C4EA9A1DE9513900E3D04C /* XMGTabBarController.m */; };
 		32C4EA9F1DE9533E00E3D04C /* UIImage+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C4EA9E1DE9533E00E3D04C /* UIImage+Image.m */; };
+		32C9E6AB1DFBF82A00E9C021 /* UIImageView+Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C9E6AA1DFBF82A00E9C021 /* UIImageView+Download.m */; };
 		32D705781DEEAB8D00FE39C9 /* XMGFriendTrendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32D705771DEEAB8D00FE39C9 /* XMGFriendTrendViewController.xib */; };
 		32D7057C1DEEADC100FE39C9 /* XMGLoginRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D7057A1DEEADC100FE39C9 /* XMGLoginRegisterViewController.m */; };
 		32D7057D1DEEADC100FE39C9 /* XMGLoginRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32D7057B1DEEADC100FE39C9 /* XMGLoginRegisterViewController.xib */; };
@@ -162,6 +163,8 @@
 		32C4EA9A1DE9513900E3D04C /* XMGTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGTabBarController.m; sourceTree = "<group>"; };
 		32C4EA9D1DE9533E00E3D04C /* UIImage+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Image.h"; sourceTree = "<group>"; };
 		32C4EA9E1DE9533E00E3D04C /* UIImage+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Image.m"; sourceTree = "<group>"; };
+		32C9E6A91DFBF82A00E9C021 /* UIImageView+Download.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Download.h"; sourceTree = "<group>"; };
+		32C9E6AA1DFBF82A00E9C021 /* UIImageView+Download.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Download.m"; sourceTree = "<group>"; };
 		32D705771DEEAB8D00FE39C9 /* XMGFriendTrendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XMGFriendTrendViewController.xib; sourceTree = "<group>"; };
 		32D705791DEEADC100FE39C9 /* XMGLoginRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGLoginRegisterViewController.h; sourceTree = "<group>"; };
 		32D7057A1DEEADC100FE39C9 /* XMGLoginRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGLoginRegisterViewController.m; sourceTree = "<group>"; };
@@ -641,6 +644,8 @@
 				3256D5791DEC54EE000AADD6 /* UIBarButtonItem+Item.m */,
 				32B958011DEF015B004C9FB3 /* UITextField+Placeholder.h */,
 				32B958021DEF015B004C9FB3 /* UITextField+Placeholder.m */,
+				32C9E6A91DFBF82A00E9C021 /* UIImageView+Download.h */,
+				32C9E6AA1DFBF82A00E9C021 /* UIImageView+Download.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -855,6 +860,7 @@
 				3214FD5A1DEE54C200737F78 /* XMGSubTagViewCell.m in Sources */,
 				32F94E351DEFC67D00F0251B /* XMGSquareItem.m in Sources */,
 				32B957FD1DEEFCBA004C9FB3 /* XMGFastButton.m in Sources */,
+				32C9E6AB1DFBF82A00E9C021 /* UIImageView+Download.m in Sources */,
 				32B957F81DEEF74D004C9FB3 /* XMGFastLoginView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

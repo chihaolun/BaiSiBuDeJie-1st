@@ -9,6 +9,9 @@
 #import "UIView+Frame.h"
 #import "UIBarButtonItem+Item.h"
 #import "XMGConst.h"
+#import "UIImage+Image.h"
+#import "UIImageView+Download.h"
+
 #define XMGColor(r,g,b)  [UIColor colorWithRed:(r) / 256.0 green:(g) / 256.0 blue:(b) / 256.0 alpha:1]
 
 #define XMGRandomColor XMGColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))

@@ -94,16 +94,7 @@
     _topic = topic;
     
 //    [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:topic.profile_image] placeholderImage:[UIImage imageNamed:@"defaultUserIcon"]];
-    
-    [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:topic.profile_image] placeholderImage:[UIImage imageNamed:@"defaultUserIcon"] options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        if (!image) return ;
-        
-        self.profileImageView.image = [image xmg_circleImage];
-       
-    }];
-    
-    
-
+    [self.profileImageView xmg_setHeader:topic.profile_image];
     
     self.nameLabel.text = topic.name;
     self.passtimeLabel.text = topic.passtime;

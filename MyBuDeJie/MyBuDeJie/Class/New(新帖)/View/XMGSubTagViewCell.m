@@ -46,24 +46,7 @@
     
     [self resolveNum];
     
-    
-    [self.iconVIew sd_setImageWithURL:[NSURL URLWithString:item.image_list] placeholderImage:[UIImage imageNamed:@"defaultUserIcon"] options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        // 1.开启图形上下文
-        // 比例因素:当前点与像素比例
-        UIGraphicsBeginImageContextWithOptions(image.size, NO, 0);
-        // 2.描述裁剪区域
-        UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
-        // 3.设置裁剪区域;
-        [path addClip];
-        // 4.画图片
-        [image drawAtPoint:CGPointZero];
-        // 5.取出图片
-        image = UIGraphicsGetImageFromCurrentImageContext();
-        // 6.关闭上下文
-        UIGraphicsEndImageContext();
-        
-        self.iconVIew.image = image;
-    }];
+    [self.iconVIew xmg_setHeader:item.image_list];
 }
 
 - (void)resolveNum{

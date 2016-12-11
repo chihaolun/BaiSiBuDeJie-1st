@@ -25,7 +25,7 @@
 @property (nonatomic, weak) UIView *header;
 @property (nonatomic, weak) UILabel *headerLabel;
 
-
+- (XMGTopicType)type;
 
 @end
 
@@ -207,7 +207,9 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
     }
 }
 
-
+- (XMGTopicType)type{
+    return XMGTopicTypeVideo;
+}
 
 
 -(void)loadNewTopics{
@@ -218,7 +220,7 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"a"] = @"list";
     parameters[@"c"] = @"data";
-    parameters[@"type"] = @"31";
+    parameters[@"type"] = @(self.type);
     
     [mgr GET:XMGCommonURL parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {
         //XMGAFNWriteToPlist(@"all");
@@ -248,7 +250,7 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"a"] = @"list";
     parameters[@"c"] = @"data";
-    parameters[@"type"] = @"31";
+    parameters[@"type"] = @(self.type);
     parameters[@"maxtime"] = self.maxtime;
     
     [mgr GET:XMGCommonURL parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {

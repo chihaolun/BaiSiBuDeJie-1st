@@ -7,6 +7,22 @@
 //
 
 #import "XMGTopicVideoView.h"
+#import <AFNetworking.h>
+#import <UIImageView+WebCache.h>
+#import "XMGTopic.h"
+
+@interface XMGTopicVideoView ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
+@property (weak, nonatomic) IBOutlet UILabel *playcountLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *videotimeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *placeholderView;
+
+@end
+
+
 
 @implementation XMGTopicVideoView
 
@@ -14,5 +30,26 @@
 
     self.autoresizingMask = UIViewAutoresizingNone;
 }
+
+- (void)setTopic:(XMGTopic *)topic{
+    
+    _topic = topic;
+    self.placeholderView.hidden = NO;
+    //    UIImage *placeholder = nil;
+    [self.imageView xmg_setOriginImage:topic.image1 thumnailImage:topic.image0 placeholder:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        if (!image)  return ;
+        self.placeholderView.hidden = YES;
+    }];
+    
+    
+    if (topic.playcount >= 10000) {
+        self.playcountLabel.text = [NSString stringWithFormat:@"%.1f万播放",topic.playcount / 10000.0];
+    }else{
+        self.playcountLabel.text = [NSString stringWithFormat:@"%zd播放",topic.playcount];
+    }
+    
+    self.videotimeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",topic.videotime / 60,topic.videotime % 60];
+}
+
 
 @end

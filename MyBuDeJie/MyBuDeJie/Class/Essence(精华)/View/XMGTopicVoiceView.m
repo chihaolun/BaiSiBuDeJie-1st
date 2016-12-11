@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *playcountLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *voicetimeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *placeholderView;
 
 @end
 
@@ -32,9 +33,12 @@
 - (void)setTopic:(XMGTopic *)topic{
 
     _topic = topic;
-    
+    self.placeholderView.hidden = NO;
 //    UIImage *placeholder = nil;
-    [self.imageView xmg_setOriginImage:topic.image1 thumnailImage:topic.image0 placeholder:nil];
+    [self.imageView xmg_setOriginImage:topic.image1 thumnailImage:topic.image0 placeholder:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        if (!image)  return ;
+        self.placeholderView.hidden = YES;
+    }];
     
         
     if (topic.playcount >= 10000) {

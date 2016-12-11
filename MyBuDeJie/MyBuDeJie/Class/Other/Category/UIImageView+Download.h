@@ -13,5 +13,5 @@
 
 - (void)xmg_setHeader:(NSString *)headerUrl;
 
-- (void)xmg_setOriginImage:(NSString *)originImageURL thumnailImage:(NSString *)thumnailImageURL placeholder:(UIImage *)placeholder completed:(nullable SDExternalCompletionBlock)completedBlock;
+- (void)xmg_setOriginImage:(NSString *)originImageURL thumbnailImage:(NSString *)thumbnailImageURL placeholder:(UIImage *)placeholder completed:(nullable SDExternalCompletionBlock)completedBlock;
 @end

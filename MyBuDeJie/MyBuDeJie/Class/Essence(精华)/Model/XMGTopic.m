@@ -26,6 +26,12 @@
         
         CGFloat middleW = textMaxSize.width;
         CGFloat middleH = middleW * self.height / self.width;
+        
+        if (middleH >= XMGScreenH) {
+            middleH = 200;
+            self.bigPicture = YES;
+        }
+        
         CGFloat middleY = _cellHeight;
         CGFloat middleX = XMGMarin;
         

@@ -126,6 +126,7 @@
         self.pictureView.hidden = NO;
         self.voiceView.hidden = YES;
         self.videoView.hidden = YES;
+        self.pictureView.topic = topic;
     }else if (topic.type == XMGTopicTypeVoice){
         self.pictureView.hidden = YES;
         self.voiceView.hidden = NO;

@@ -35,7 +35,7 @@
     _topic = topic;
     self.placeholderView.hidden = NO;
 //    UIImage *placeholder = nil;
-    [self.imageView xmg_setOriginImage:topic.image1 thumnailImage:topic.image0 placeholder:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    [self.imageView xmg_setOriginImage:topic.image1 thumbnailImage:topic.image0 placeholder:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         if (!image)  return ;
         self.placeholderView.hidden = YES;
     }];

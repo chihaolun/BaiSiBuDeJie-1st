@@ -26,7 +26,7 @@
 
 }
 
-- (void)xmg_setOriginImage:(NSString *)originImageURL thumnailImage:(NSString *)thumnailImageURL placeholder:(UIImage *)placeholder completed:(nullable SDExternalCompletionBlock)completedBlock{
+- (void)xmg_setOriginImage:(NSString *)originImageURL thumbnailImage:(NSString *)thumbnailImageURL placeholder:(UIImage *)placeholder completed:(nullable SDExternalCompletionBlock)completedBlock{
 
     AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
     // 获得原图（SDWebImage的图片缓存是用图片的url字符串作为key）
@@ -44,13 +44,13 @@
             if (downloadOriginImageWhen3GOr4G) {
                 [self sd_setImageWithURL:[NSURL URLWithString:originImageURL] placeholderImage:placeholder completed:completedBlock];
             } else {
-                [self sd_setImageWithURL:[NSURL URLWithString:thumnailImageURL] placeholderImage:placeholder ];
+                [self sd_setImageWithURL:[NSURL URLWithString:thumbnailImageURL] placeholderImage:placeholder completed:completedBlock];
             }
         } else { // 没有可用网络
-            UIImage *thumbnailImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:thumnailImageURL];
+            UIImage *thumbnailImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:thumbnailImageURL];
             if (thumbnailImage) { // 缩略图已经被下载过
                 self.image = thumbnailImage;
-                completedBlock(thumbnailImage,nil,0,[NSURL URLWithString:thumnailImageURL]);
+                completedBlock(thumbnailImage,nil,0,[NSURL URLWithString:thumbnailImageURL]);
             } else { // 没有下载过任何图片
                 // 占位图片;
                 self.image = placeholder;

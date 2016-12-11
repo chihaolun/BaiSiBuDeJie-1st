@@ -69,4 +69,8 @@ typedef NS_ENUM(NSUInteger, XMGTopicType){
 @property (nonatomic, assign) NSInteger videotime;
 @property (nonatomic, assign) NSInteger playcount;
 
+@property (nonatomic, assign) BOOL is_gif;
+
+@property (nonatomic, assign ,getter=isBigPicture) BOOL bigPicture;
+
 @end

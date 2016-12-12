@@ -159,6 +159,8 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
     [self dealFooter];
     
     [self dealHeader];
+    
+    [[SDImageCache sharedImageCache] clearMemory];
 
 }
 

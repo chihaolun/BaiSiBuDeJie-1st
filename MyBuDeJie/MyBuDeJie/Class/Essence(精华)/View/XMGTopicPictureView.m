@@ -46,17 +46,7 @@
     [self.imageView xmg_setOriginImage:topic.image1 thumbnailImage:topic.image0 placeholder:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if (!image) return;
         
-        self.placeholderView.hidden = YES;
-    }];
-    
-    self.gifView.hidden = !topic.is_gif;
-    
-    if (topic.isBigPicture) {
-        self.seeBigPictureButton.hidden = NO;
-        self.imageView.contentMode = UIViewContentModeTop;
-        self.imageView.clipsToBounds = YES;
-        
-        if (self.imageView.image) {
+        if (topic.isBigPicture) {
             CGFloat imageW = topic.middleFrame.size.width;
             CGFloat imageH = imageW * topic.height / topic.width;
             
@@ -67,6 +57,18 @@
             
             UIGraphicsEndImageContext();
         }
+        
+        self.placeholderView.hidden = YES;
+    }];
+    
+    self.gifView.hidden = !topic.is_gif;
+    
+    if (topic.isBigPicture) {
+        self.seeBigPictureButton.hidden = NO;
+        self.imageView.contentMode = UIViewContentModeTop;
+        self.imageView.clipsToBounds = YES;
+        
+        
         
     }else{
     

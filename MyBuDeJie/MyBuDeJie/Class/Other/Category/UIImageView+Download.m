@@ -26,7 +26,7 @@
 
 }
 
-- (void)xmg_setOriginImage:(NSString *)originImageURL thumbnailImage:(NSString *)thumbnailImageURL placeholder:(UIImage *)placeholder completed:(nullable SDExternalCompletionBlock)completedBlock{
+- (void)xmg_setOriginImage:(NSString *)originImageURL thumbnailImage:(NSString *)thumbnailImageURL placeholder:(UIImage *)placeholder completed:(SDWebImageCompletionBlock)completedBlock{
 
     AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
     // 获得原图（SDWebImage的图片缓存是用图片的url字符串作为key）

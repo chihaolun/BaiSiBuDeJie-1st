@@ -12,6 +12,7 @@
 #import "XMGTopic.h"
 
 #import "UIImage+GIF.h"
+#import "XMGSeeBigPictureViewController.h"
 
 @interface XMGTopicPictureView ()
 
@@ -28,9 +29,18 @@
 
 - (void)awakeFromNib
 {
-    self.autoresizingMask = UIViewAutoresizingNone;
+        self.autoresizingMask = UIViewAutoresizingNone;
     
+    self.imageView.userInteractionEnabled = YES;
     
+    [self.imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(seeBigPicture)]];
+}
+
+- (void)seeBigPicture{
+
+    XMGSeeBigPictureViewController *vc = [[XMGSeeBigPictureViewController alloc] init];
+    vc.topic = self.topic;
+    [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)setTopic:(XMGTopic *)topic

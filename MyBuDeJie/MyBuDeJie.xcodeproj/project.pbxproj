@@ -48,6 +48,8 @@
 		325BF8141DEDADCF002FB86E /* XMGSubTagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 325BF8131DEDADCF002FB86E /* XMGSubTagItem.m */; };
 		32634A971DF8088600B3E46A /* UIImage+Antialias.m in Sources */ = {isa = PBXBuildFile; fileRef = 32634A961DF8088600B3E46A /* UIImage+Antialias.m */; };
 		32788CCE1DF1DEC9000A735F /* XMGConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 32788CCD1DF1DEC9000A735F /* XMGConst.m */; };
+		3283A1EE1DFE9DED00FC47CC /* XMGSeeBigPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3283A1EC1DFE9DED00FC47CC /* XMGSeeBigPictureViewController.m */; };
+		3283A1EF1DFE9DED00FC47CC /* XMGSeeBigPictureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3283A1ED1DFE9DED00FC47CC /* XMGSeeBigPictureViewController.xib */; };
 		32A9E3671DF5A70600487BBD /* XMGTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A9E3661DF5A70600487BBD /* XMGTopic.m */; };
 		32B957F81DEEF74D004C9FB3 /* XMGFastLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B957F71DEEF74D004C9FB3 /* XMGFastLoginView.m */; };
 		32B957FA1DEEF75F004C9FB3 /* XMGFastLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32B957F91DEEF75F004C9FB3 /* XMGFastLoginView.xib */; };
@@ -144,6 +146,9 @@
 		32634A961DF8088600B3E46A /* UIImage+Antialias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Antialias.m"; sourceTree = "<group>"; };
 		32788CCC1DF1DEC9000A735F /* XMGConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGConst.h; sourceTree = "<group>"; };
 		32788CCD1DF1DEC9000A735F /* XMGConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGConst.m; sourceTree = "<group>"; };
+		3283A1EB1DFE9DED00FC47CC /* XMGSeeBigPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGSeeBigPictureViewController.h; sourceTree = "<group>"; };
+		3283A1EC1DFE9DED00FC47CC /* XMGSeeBigPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGSeeBigPictureViewController.m; sourceTree = "<group>"; };
+		3283A1ED1DFE9DED00FC47CC /* XMGSeeBigPictureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XMGSeeBigPictureViewController.xib; sourceTree = "<group>"; };
 		32A9E3651DF5A70600487BBD /* XMGTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGTopic.h; sourceTree = "<group>"; };
 		32A9E3661DF5A70600487BBD /* XMGTopic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGTopic.m; sourceTree = "<group>"; };
 		32B957F61DEEF74D004C9FB3 /* XMGFastLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGFastLoginView.h; sourceTree = "<group>"; };
@@ -301,6 +306,9 @@
 				32D8CE671DF1D5C500477CD4 /* XMGPictureViewController.m */,
 				32D8CE691DF1D5D800477CD4 /* XMGWordViewController.h */,
 				32D8CE6A1DF1D5D800477CD4 /* XMGWordViewController.m */,
+				3283A1EB1DFE9DED00FC47CC /* XMGSeeBigPictureViewController.h */,
+				3283A1EC1DFE9DED00FC47CC /* XMGSeeBigPictureViewController.m */,
+				3283A1ED1DFE9DED00FC47CC /* XMGSeeBigPictureViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -751,6 +759,7 @@
 				32B958051DEF0D99004C9FB3 /* XMGMeViewController.storyboard in Resources */,
 				3256D59D1DEC6F9D000AADD6 /* LaunchImage@2x.png in Resources */,
 				3256D5981DEC6F9D000AADD6 /* LaunchImage-700-568h@2x.png in Resources */,
+				3283A1EF1DFE9DED00FC47CC /* XMGSeeBigPictureViewController.xib in Resources */,
 				32F94E3A1DF042F500F0251B /* XMGWebViewController.xib in Resources */,
 				32D705821DEEB1EE00FE39C9 /* XMGLoginRegisterView.xib in Resources */,
 				3256D59A1DEC6F9D000AADD6 /* LaunchImage-800-667h@2x.png in Resources */,
@@ -821,6 +830,7 @@
 			files = (
 				3256D5701DEC4BB9000AADD6 /* XMGTabBar.m in Sources */,
 				3256D57A1DEC54EF000AADD6 /* UIBarButtonItem+Item.m in Sources */,
+				3283A1EE1DFE9DED00FC47CC /* XMGSeeBigPictureViewController.m in Sources */,
 				32D8CE651DF1D5B300477CD4 /* XMGVoiceViewController.m in Sources */,
 				320A2A6B1DF906D1000B374F /* XMGTopicVideoView.m in Sources */,
 				32D8CE6B1DF1D5D800477CD4 /* XMGWordViewController.m in Sources */,

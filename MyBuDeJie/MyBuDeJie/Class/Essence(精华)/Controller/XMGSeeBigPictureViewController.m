@@ -8,9 +8,13 @@
 
 #import "XMGSeeBigPictureViewController.h"
 #import "XMGTopic.h"
+#import <SVProgressHUD.h>
+#import <Photos/Photos.h>
+
 @interface XMGSeeBigPictureViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (nonatomic, weak)  UIImageView *imageView;
+- (PHAssetCollection *)createdCollection;
 @end
 
 @implementation XMGSeeBigPictureViewController
@@ -65,16 +69,41 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (IBAction)saveBtnClick:(id)sender {
+    
+    self.createdCollection;
+//    NSError *error = nil;
+//    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+//        [PHAssetChangeRequest creationRequestForAssetFromImage:self.imageView.image];
+//    } error:&error];
 }
 
-/*
-#pragma mark - Navigation
+- (PHAssetCollection *)createdCollection{
+//获取App名字
+    NSString *title = [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleNameKey];
+    
+    //抓取所有自定义相册
+   PHFetchResult<PHAssetCollection *> *collections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    
+    
+    //查找App对应的自定义相册
+    for (PHAssetCollection *collection in collections) {
+        if ([collection.localizedTitle isEqualToString:title]) {
+            return collection;
+        }
+    }
+   __block NSString *createdCollectionID = nil;
+    NSError *error = nil;
+    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+       createdCollectionID = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:title].placeholderForCreatedAssetCollection.localIdentifier;
+    } error:&error];
+    
+    if (error) {
+        [SVProgressHUD showErrorWithStatus:@"创建相册失败"];
+        return nil;
+    }
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    return [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[createdCollectionID] options:nil].firstObject;
 }
-*/
+
 
 @end

@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (nonatomic, weak)  UIImageView *imageView;
 - (PHAssetCollection *)createdCollection;
+- (PHFetchResult<PHAsset *> *)createdAssets;
 @end
 
 @implementation XMGSeeBigPictureViewController
@@ -70,13 +71,29 @@
 }
 - (IBAction)saveBtnClick:(id)sender {
     
-    self.createdCollection;
-//    NSError *error = nil;
-//    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
-//        [PHAssetChangeRequest creationRequestForAssetFromImage:self.imageView.image];
-//    } error:&error];
+//先检查访问权限
+//用户没做出选择时候 自动弹框  选择之后  才会调用block
+    //之前做过选择 直接调用block
+    PHAuthorizationStatus oldStatus = [PHPhotoLibrary authorizationStatus];
+    
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (status == PHAuthorizationStatusDenied) {
+                if (oldStatus != PHAuthorizationStatusNotDetermined) {
+                    NSLog(@"提醒用户打开开关");
+                }
+            }else if (status == PHAuthorizationStatusAuthorized){
+                [self saveImageInToAlbum];
+            
+            }else if (status == PHAuthorizationStatusRestricted){
+            
+                [SVProgressHUD showErrorWithStatus:@"由于系统原因，无法访问相册!"];
+            }
+            
+        });
+    }];
 }
-
+#pragma mark - 创建并获得App对应的相册
 - (PHAssetCollection *)createdCollection{
 //获取App名字
     NSString *title = [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleNameKey];
@@ -97,13 +114,56 @@
        createdCollectionID = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:title].placeholderForCreatedAssetCollection.localIdentifier;
     } error:&error];
     
-    if (error) {
-        [SVProgressHUD showErrorWithStatus:@"创建相册失败"];
-        return nil;
-    }
+    if (error) return nil;
+   
 
     return [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[createdCollectionID] options:nil].firstObject;
 }
+#pragma mark - 保存图片到相机胶卷并获得图片
+- (PHFetchResult<PHAsset *> *)createdAssets{
+    NSError *error = nil;
+    __block NSString *assetID = nil;
+        [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+           assetID = [PHAssetChangeRequest creationRequestForAssetFromImage:self.imageView.image].placeholderForCreatedAsset.localIdentifier;
+        } error:&error];
+    
+    if (error) return nil;
+    return [PHAsset fetchAssetsWithLocalIdentifiers:@[assetID] options:nil];
+}
 
+#pragma mark - 保存图片到自定义相册
+- (void)saveImageInToAlbum{
+
+    //获得相片
+  PHFetchResult<PHAsset *> *createdAssests = self.createdAssets;
+    if (createdAssests == nil) {
+        [SVProgressHUD showErrorWithStatus:@"保存图片失败！"];
+        return;
+    }
+    
+    //获得相册
+    PHAssetCollection *createdCollection = self.createdCollection;
+    if (createdCollection == nil) {
+        [SVProgressHUD showErrorWithStatus:@"创建或者获取相册失败"];
+        return;
+    }
+    //添加图片到自定义相册
+    NSError *error = nil;
+    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+        //要对哪个相册进行操作 把相册保存起来
+     PHAssetCollectionChangeRequest *request = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:createdCollection];
+        //把图片保存到定义相册的第一张
+        [request insertAssets:createdAssests atIndexes:[NSIndexSet indexSetWithIndex:0]];
+        
+    } error:&error];
+    
+    //最后判断
+    if (error) {
+        [SVProgressHUD showErrorWithStatus:@"保存失败!"];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:@"保存成功!"];
+    }
+
+}
 
 @end

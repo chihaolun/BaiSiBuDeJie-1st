@@ -599,6 +599,8 @@
 		326E6D501E0283A7005EC152 /* Topic */ = {
 			isa = PBXGroup;
 			children = (
+				326E6D511E0283E0005EC152 /* XMGTopicViewController.h */,
+				326E6D521E0283E0005EC152 /* XMGTopicViewController.m */,
 				32D8CE5D1DF1D56D00477CD4 /* XMGAllViewViewController.h */,
 				32D8CE5E1DF1D56D00477CD4 /* XMGAllViewViewController.m */,
 				32D8CE601DF1D58D00477CD4 /* XMGVideoViewController.h */,
@@ -609,8 +611,6 @@
 				32D8CE671DF1D5C500477CD4 /* XMGPictureViewController.m */,
 				32D8CE691DF1D5D800477CD4 /* XMGWordViewController.h */,
 				32D8CE6A1DF1D5D800477CD4 /* XMGWordViewController.m */,
-				326E6D511E0283E0005EC152 /* XMGTopicViewController.h */,
-				326E6D521E0283E0005EC152 /* XMGTopicViewController.m */,
 			);
 			name = Topic;
 			sourceTree = "<group>";

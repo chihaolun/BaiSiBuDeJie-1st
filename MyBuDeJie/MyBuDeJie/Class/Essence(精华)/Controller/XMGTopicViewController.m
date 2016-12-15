@@ -12,19 +12,15 @@
 #import <MJExtension.h>
 #import <SVProgressHUD.h>
 #import "XMGTopicCell.h"
+#import <SDImageCache.h>
+#import <MJRefresh.h>
 
 @interface XMGTopicViewController ()
 
 @property (nonatomic, copy) NSString *maxtime;
 @property (nonatomic, strong) NSMutableArray *topics;
 
-@property (nonatomic, weak) UIView *footer;
-@property (nonatomic, assign ,getter=isFooterRefreshing) BOOL footerRefreshing;
-@property (nonatomic, assign ,getter=isHeaderRefreshing) BOOL headerRefreshing;
-@property (nonatomic, weak) UILabel *footerLabel;
-@property (nonatomic, weak) UIView *header;
-@property (nonatomic, weak) UILabel *headerLabel;
-
+@property (nonatomic, strong)AFHTTPSessionManager *manager;
 - (XMGTopicType)type;
 
 @end
@@ -32,6 +28,14 @@
 @implementation XMGTopicViewController
 
 - (XMGTopicType)type {return 0;}
+
+- (AFHTTPSessionManager *)manager{
+    if (!_manager) {
+        _manager = [AFHTTPSessionManager manager];
+    }
+    return _manager;
+}
+
 
 
 static NSString * const XMGTopicCellID = @"XMGTopicCellID";
@@ -67,7 +71,7 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
     if (self.view.window == nil) return;
     if (self.tableView.scrollsToTop == NO) return;
     
-    [self headerBeginRefreshing];
+    [self.tableView.mj_header beginRefreshing];
     
 }
 
@@ -80,19 +84,6 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
 
 - (void)setUpfresh{
     
-    
-    UIView *footer = [[UIView alloc] init];
-    footer.frame = CGRectMake(0, 0, self.tableView.xmg_width, 35);
-    UILabel *footerLabel = [[UILabel alloc] init];
-    footerLabel.frame = footer.bounds;
-    footerLabel.text = @"上拉可以加载更多";
-    footerLabel.textColor = [UIColor whiteColor];
-    footerLabel.textAlignment = NSTextAlignmentCenter;
-    self.footerLabel = footerLabel;
-    [footer addSubview:footerLabel];
-    self.footer = footer;
-    self.tableView.tableFooterView = footer;
-    
     //广告
     UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor blackColor];
@@ -101,24 +92,13 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
     label.textColor = [UIColor whiteColor];
     label.textAlignment = NSTextAlignmentCenter;
     self.tableView.tableHeaderView = label;
-    
-    
     //header
-    UIView *header = [[UIView alloc] init];
-    header.frame = CGRectMake(0, -50, self.tableView.xmg_width, 50);
-    self.header = header;
-    [self.tableView addSubview:header];
-    
-    UILabel *headerLabel = [[UILabel alloc] init];
-    headerLabel.frame = header.bounds;
-    headerLabel.backgroundColor = [UIColor redColor];
-    headerLabel.text = @"下拉可以刷新";
-    headerLabel.textColor = [UIColor whiteColor];
-    headerLabel.textAlignment = NSTextAlignmentCenter;
-    self.headerLabel = headerLabel;
-    [header addSubview:headerLabel];
-    
-    [self headerBeginRefreshing];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopics)];
+    //自动切换透明度
+    self.tableView.mj_header.automaticallyChangeAlpha = YES;
+    [self.tableView.mj_header beginRefreshing];
+   //footer
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreTopics)];
 }
 
 
@@ -134,7 +114,7 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    self.footer.hidden = (self.topics.count == 0);
+    self.tableView.mj_footer.hidden = (self.topics.count == 0);
     return self.topics.count;
 }
 
@@ -154,60 +134,8 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
     return cell;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    [self dealFooter];
-    
-    [self dealHeader];
-    
-    [[SDImageCache sharedImageCache] clearMemory];
-    
-}
 
-- (void)dealHeader{
-    
-    
-    if (self.isHeaderRefreshing) return;
-    CGFloat offsetY = - (self.tableView.contentInset.top + self.header.xmg_height);
-    
-    if (self.tableView.contentOffset.y <= offsetY) {
-        self.headerLabel.text = @"松开立即刷新";
-        self.headerLabel.backgroundColor = [UIColor grayColor];
-    }else{
-        self.headerLabel.text = @"下拉可以刷新";
-        self.headerLabel.backgroundColor = [UIColor redColor];
-        
-    }
-    
-}
 
-- (void)dealFooter{
-    
-    if (self.tableView.contentSize.height == 0) return;
-    
-    
-    
-    CGFloat offsetY = self.tableView.contentSize.height + self.tableView.contentInset.bottom - self.tableView.xmg_height;
-    
-    if (self.tableView.contentOffset.y >= offsetY && self.tableView.contentOffset.y > - (self.tableView.contentInset.top)) {
-        [self footerBeginRefreshing];
-        
-    }
-    
-    
-}
-
-//手松开的时候调用
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-    
-    
-    CGFloat offsetY = - (self.tableView.contentInset.top + self.header.xmg_height);
-    
-    if (self.tableView.contentOffset.y <= offsetY) {
-        [self headerBeginRefreshing];
-    }
-}
 
 //- (XMGTopicType)type{
 //    return XMGTopicTypeAll;
@@ -215,7 +143,8 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
 
 
 -(void)loadNewTopics{
-    [self footerEndRefreshing];
+   //取消之前请求
+    [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
     //发请求
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     
@@ -230,11 +159,11 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
         self.maxtime = responseObject[@"info"][@"maxtime"];
         self.topics = [XMGTopic mj_objectArrayWithKeyValuesArray:responseObject[@"list"]];
         [self.tableView reloadData];
-        [self headerEndRefreshing];
+        [self.tableView.mj_header endRefreshing];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //        NSLog(@"%@",error);
         [SVProgressHUD showErrorWithStatus:@"网络繁忙，请稍后再试"];
-        [self headerEndRefreshing];
+        [self.tableView.mj_header endRefreshing];
     }];
     //
     //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -246,7 +175,7 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
 
 - (void)loadMoreTopics{
     
-    [self headerEndRefreshing];
+    [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
     //发请求
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     
@@ -263,70 +192,15 @@ static NSString * const XMGTopicCellID = @"XMGTopicCellID";
         
         [self.topics addObjectsFromArray:moreTopics];
         [self.tableView reloadData];
-        [self footerEndRefreshing];
+        [self.tableView.mj_footer endRefreshing];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //        NSLog(@"%@",error);
         [SVProgressHUD showErrorWithStatus:@"网络繁忙，请稍后再试"];
-        [self footerEndRefreshing];
+        [self.tableView.mj_footer endRefreshing];
     }];
     
 }
 
-- (void)headerBeginRefreshing{
-    
-    if (self.isHeaderRefreshing) return;
-    self.headerLabel.text = @"正在刷新数据...";
-    self.headerLabel.backgroundColor = [UIColor blueColor];
-    self.headerRefreshing = YES;
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        UIEdgeInsets inset = self.tableView.contentInset;
-        inset.top += self.header.xmg_height;
-        self.tableView.contentInset = inset;
-        
-        self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, - inset.top);
-    }];
-    
-    [self loadNewTopics];
-    
-    
-    
-    
-}
-- (void)headerEndRefreshing{
-    
-    self.headerRefreshing = NO;
-    
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        UIEdgeInsets inset = self.tableView.contentInset;
-        inset.top -= self.header.xmg_height;
-        self.tableView.contentInset = inset;
-        
-    }];
-    
-    
-}
-- (void)footerBeginRefreshing{
-    
-    if (self.isFooterRefreshing) return;
-    self.footerRefreshing = YES;
-    self.footerLabel.text = @"正在加载更多数据";
-    self.footerLabel.backgroundColor = [UIColor blueColor];
-    
-    [self loadMoreTopics];
-    
-    
-}
-- (void)footerEndRefreshing{
-    
-    
-    self.footerRefreshing = NO;
-    self.footerLabel.text = @"上拉可以加载更多";
-    self.footerLabel.backgroundColor = [UIColor redColor];
-    
-    
-}
 
 
 

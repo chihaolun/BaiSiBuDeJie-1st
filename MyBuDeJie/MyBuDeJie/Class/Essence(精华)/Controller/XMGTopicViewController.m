@@ -31,7 +31,7 @@
 
 @implementation XMGTopicViewController
 
-
+- (XMGTopicType)type {return 0;}
 
 
 static NSString * const XMGTopicCellID = @"XMGTopicCellID";

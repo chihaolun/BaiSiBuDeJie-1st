@@ -6,8 +6,7 @@
 //  Copyright © 2016年 迟浩伦. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface XMGPictureViewController : UITableViewController
+#import "XMGTopicViewController.h"
+@interface XMGPictureViewController : XMGTopicViewController
 
 @end

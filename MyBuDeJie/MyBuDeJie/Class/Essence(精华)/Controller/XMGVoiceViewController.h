@@ -6,8 +6,8 @@
 //  Copyright © 2016年 迟浩伦. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
-@interface XMGVoiceViewController : UITableViewController
+#import "XMGTopicViewController.h"
+@interface XMGVoiceViewController : XMGTopicViewController
 
 @end
